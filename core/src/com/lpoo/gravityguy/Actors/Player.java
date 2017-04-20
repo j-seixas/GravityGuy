@@ -8,20 +8,25 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.lpoo.gravityguy.Game.GravityGuyGame;
 
 public class Player extends Actor{
+    private GravityGuyGame game;
+    private World world;
     private Body body;
     private Sprite sprite; //TODO Change to final
     private Animation<TextureRegion> animation; //TODO Change to final
     private float stateTime = 0f;
 
-    public Player(World world){
+    public Player(GravityGuyGame game, World world){
         super();
         if(world == null)
             throw new IllegalArgumentException();
+        this.world = world;
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
-        body = world.createBody(def);
+        this.body = world.createBody(def);
+        this.game = game;
     }
 
     @Override

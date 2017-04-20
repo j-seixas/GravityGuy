@@ -27,11 +27,11 @@ public class GameStage extends Stage {
             addActor(player);
         }
         //TODO Missing set bounds and generate randomly
-        for(int i = 0; i < 10; i++){
+       /* for(int i = 0; i < 10; i++){
             Block block = new Block(world);
             blocks.add(block);
             addActor(block);
-        }
+        }*/
     }
 
     @Override
