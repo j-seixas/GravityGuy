@@ -7,20 +7,31 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.lpoo.gravityguy.Actors.Block;
 import com.lpoo.gravityguy.Actors.Player;
+import com.lpoo.gravityguy.Game.GravityGuyGame;
 
 public class GameStage extends Stage {
 
+    private GravityGuyGame game;
     private World world;
     private ArrayList<Block> blocks;
     private ArrayList<Player> players;
 
-    public GameStage(){
+    public GameStage(GravityGuyGame game){
         players = new ArrayList<Player>();
         blocks = new ArrayList<Block>();
-        world = new World(new Vector2(0f, -1f), true);
-        //TODO Change the constructors of the actors
-        players.add(new Player(world));
-        blocks.add(new Block(world));
+        world = new World(new Vector2(0f, 1f), true);
+        for(int i = 0; i < game.getNumberPlayers(); i++){
+            //TODO Missing set bounds
+            Player player = new Player(world);
+            players.add(player);
+            addActor(player);
+        }
+        //TODO Missing set bounds and generate randomly
+        for(int i = 0; i < 10; i++){
+            Block block = new Block(world);
+            blocks.add(block);
+            addActor(block);
+        }
     }
 
     @Override

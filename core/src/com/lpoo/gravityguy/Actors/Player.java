@@ -11,10 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends Actor{
     private Body body;
-    private Sprite sprite;
+    private Sprite sprite; //TODO Change to final
     private Animation<TextureRegion> animation; //TODO Change to final
+    private float stateTime = 0f;
 
     public Player(World world){
+        super();
         if(world == null)
             throw new IllegalArgumentException();
         BodyDef def = new BodyDef();
@@ -36,5 +38,9 @@ public class Player extends Actor{
     public void draw(Batch batch, float parentAlpha){
         sprite.setColor(getColor());
         sprite.draw(batch);
+    }
+
+    public void invertGravity(){
+        body.setGravityScale(-1f);
     }
 }

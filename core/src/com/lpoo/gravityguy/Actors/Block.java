@@ -13,11 +13,12 @@ public class Block extends Actor {
     private Sprite sprite;
 
     public Block(World world){
-      if(world == null)
-        throw new IllegalArgumentException();
-      BodyDef def = new BodyDef();
-      def.type = BodyDef.BodyType.StaticBody;
-      body = world.createBody(def);
+        super();
+        if(world == null)
+         throw new IllegalArgumentException();
+        BodyDef def = new BodyDef();
+        def.type = BodyDef.BodyType.StaticBody;
+        body = world.createBody(def);
     }
 
     @Override
