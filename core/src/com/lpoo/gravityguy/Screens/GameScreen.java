@@ -1,4 +1,4 @@
-package com.lpoo.gravityguy;
+package com.lpoo.gravityguy.Screens;
 
 import com.badlogic.gdx.ScreenAdapter;
 

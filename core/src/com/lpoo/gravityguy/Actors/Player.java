@@ -1,4 +1,4 @@
-package com.lpoo.gravityguy;
+package com.lpoo.gravityguy.Actors;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;

@@ -2,7 +2,7 @@ package com.lpoo.gravityguy.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.lpoo.gravityguy.GravityGuyGame;
+import com.lpoo.gravityguy.Game.GravityGuyGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
