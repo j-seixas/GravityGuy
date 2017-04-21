@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.lpoo.gravityguy.Game.GravityGuyGame;
 
-public class Player extends Actor{
+public class Player extends Actor {
     private GravityGuyGame game;
     private World world;
     private Body body;
@@ -20,7 +20,7 @@ public class Player extends Actor{
     private Animation<TextureRegion> animation; //TODO Change to final
     private float stateTime = 0f;
 
-    public Player(World w){
+    public Player(World w) {
         super();
         game = GravityGuyGame.instance();
         world = w;
@@ -41,24 +41,24 @@ public class Player extends Actor{
         body = world.createBody(def);
     }
 
-    public void setVelocity(Vector2 velocity){
+    public void setVelocity(Vector2 velocity) {
         body.setLinearVelocity(velocity);
     }
 
     @Override
-    public void act(float delta){
+    public void act(float delta) {
         sprite.setPosition(body.getPosition().x, body.getPosition().y);
         System.out.println("Body: " + body.getPosition().x + ", " + body.getPosition().y);
         System.out.println("Sprite: " + sprite.getX() + ", " + sprite.getY());
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha){
+    public void draw(Batch batch, float parentAlpha) {
         sprite.setColor(getColor());
         sprite.draw(batch);
     }
 
-    public void invertGravity(){
+    public void invertGravity() {
         body.setGravityScale(-1f);
     }
 }

@@ -12,10 +12,10 @@ public class Block extends Actor {
     private Body body;
     private Sprite sprite;
 
-    public Block(World world){
+    public Block(World world) {
         super();
-        if(world == null)
-         throw new IllegalArgumentException();
+        if (world == null)
+            throw new IllegalArgumentException();
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(def);
@@ -27,12 +27,12 @@ public class Block extends Actor {
     }
 
     @Override
-    public void act(float delta){
+    public void act(float delta) {
 
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha){
+    public void draw(Batch batch, float parentAlpha) {
         sprite.setColor(getColor());
         sprite.draw(batch);
     }
