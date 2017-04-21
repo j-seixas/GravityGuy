@@ -18,15 +18,13 @@ public class Player extends Actor{
     private Animation<TextureRegion> animation; //TODO Change to final
     private float stateTime = 0f;
 
-    public Player(GravityGuyGame game, World world){
+    public Player(World world){
         super();
-        if(world == null)
-            throw new IllegalArgumentException();
+        game = GravityGuyGame.instance();
         this.world = world;
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
         this.body = world.createBody(def);
-        this.game = game;
     }
 
     @Override

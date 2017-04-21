@@ -11,9 +11,9 @@ public class MainMenuScreen extends ScreenAdapter{
     private GravityGuyGame game;
     private MainMenuStage stage;
 
-    public MainMenuScreen(GravityGuyGame game){
+    public MainMenuScreen(){
         super();
-        this.game = game;
+        this.game = GravityGuyGame.instance();
         this.stage = new MainMenuStage();
     }
 

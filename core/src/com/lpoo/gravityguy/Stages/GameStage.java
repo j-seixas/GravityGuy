@@ -16,7 +16,8 @@ public class GameStage extends Stage {
     private ArrayList<Block> blocks;
     private ArrayList<Player> players;
 
-    public GameStage(GravityGuyGame game){
+    public GameStage(){
+        game = GravityGuyGame.instance();
         players = new ArrayList<Player>();
         blocks = new ArrayList<Block>();
         world = new World(new Vector2(0f, 1f), true);

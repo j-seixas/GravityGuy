@@ -7,6 +7,6 @@ import com.lpoo.gravityguy.Game.GravityGuyGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new GravityGuyGame(), config);
+		new LwjglApplication(GravityGuyGame.instance(), config);
 	}
 }

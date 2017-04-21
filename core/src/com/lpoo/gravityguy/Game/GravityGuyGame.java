@@ -8,18 +8,29 @@ import com.lpoo.gravityguy.Screens.MainMenuScreen;
 
 public class GravityGuyGame extends Game {
 
-    public static final int MAX_PLAYERS = 4;
-    private int number_players = 1;
-    private AssetManager assetManager;
-    private MainMenuScreen mainMenu;
-    private GameScreen gameScreen;
+    private static GravityGuyGame game = null;
+
+    public  static final int MAX_PLAYERS = 4;
+    private static int number_players = 1;
+    private static AssetManager assetManager;
+    private static MainMenuScreen mainMenu;
+    private static GameScreen gameScreen;
+
+    private GravityGuyGame(){
+        assetManager = new AssetManager();
+    }
+
+    public static GravityGuyGame instance(){
+        if(game == null)
+            game = new GravityGuyGame();
+        return game;
+    }
 
 	@Override
 	public void create () {
-        assetManager = new AssetManager();
-        loadAssets();
-        resetScreens();
-        setGameScreen();
+        instance().loadAssets();
+        instance().resetScreens();
+        instance().setGameScreen();
     }
 
     public void loadAssets(){
@@ -27,7 +38,7 @@ public class GravityGuyGame extends Game {
         assetManager.finishLoading();
     }
 
-    public AssetManager getAssetManager(){
+    public static AssetManager getAssetManager(){
         return assetManager;
     }
 
@@ -48,7 +59,7 @@ public class GravityGuyGame extends Game {
     }
 
     public void resetScreens(){
-        mainMenu = new MainMenuScreen(this);
-        gameScreen = new GameScreen(this);
+        mainMenu = new MainMenuScreen();
+        gameScreen = new GameScreen();
     }
 }
