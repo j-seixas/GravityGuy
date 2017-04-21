@@ -37,7 +37,8 @@ public class GameStage extends Stage {
 
     @Override
     public void act(float delta){
-
+        super.act(delta);
+        world.step(delta, 6, 2);
     }
 
     @Override

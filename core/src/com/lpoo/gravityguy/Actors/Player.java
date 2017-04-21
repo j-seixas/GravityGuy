@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -19,27 +20,36 @@ public class Player extends Actor{
     private Animation<TextureRegion> animation; //TODO Change to final
     private float stateTime = 0f;
 
-    public Player(World world){
+    public Player(World w){
         super();
         game = GravityGuyGame.instance();
-        this.world = world;
-        BodyDef def = new BodyDef();
-        def.type = BodyDef.BodyType.DynamicBody;
-        this.body = world.createBody(def);
-
-        Texture texture = game.getAssetManager().get("hero.png");
-        sprite = new Sprite(texture);
-
+        world = w;
+        initBody();
+        initSprites();
+        setVelocity(new Vector2(100, 0));
     }
 
-    @Override
-    protected void positionChanged() {
-        sprite.setPosition(getX(), getY());
+    private void initSprites() {
+        Texture texture = game.getAssetManager().get("hero.png");
+        sprite = new Sprite(texture);
+    }
+
+    private void initBody() {
+        BodyDef def = new BodyDef();
+        def.type = BodyDef.BodyType.DynamicBody;
+
+        body = world.createBody(def);
+    }
+
+    public void setVelocity(Vector2 velocity){
+        body.setLinearVelocity(velocity);
     }
 
     @Override
     public void act(float delta){
-
+        sprite.setPosition(body.getPosition().x, body.getPosition().y);
+        System.out.println("Body: " + body.getPosition().x + ", " + body.getPosition().y);
+        System.out.println("Sprite: " + sprite.getX() + ", " + sprite.getY());
     }
 
     @Override
