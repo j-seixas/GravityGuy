@@ -1,5 +1,6 @@
 package com.lpoo.gravityguy.Actors;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,6 +26,10 @@ public class Player extends Actor{
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
         this.body = world.createBody(def);
+
+        Texture texture = game.getAssetManager().get("hero.png");
+        sprite = new Sprite(texture);
+
     }
 
     @Override

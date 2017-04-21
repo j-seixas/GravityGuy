@@ -42,7 +42,7 @@ public class GameStage extends Stage {
 
     @Override
     public void draw(){
-
+        super.draw();
     }
 
 }
