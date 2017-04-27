@@ -48,12 +48,13 @@ public class Player extends Actor {
     @Override
     public void act(float delta) {
         sprite.setPosition(body.getPosition().x, body.getPosition().y);
-        System.out.println("Body: " + body.getPosition().x + ", " + body.getPosition().y);
-        System.out.println("Sprite: " + sprite.getX() + ", " + sprite.getY());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        System.out.println("Actor: (" + this.getX() + ", " + this.getY() + ")");
+        System.out.println("Body: (" + body.getPosition().x + ", " + body.getPosition().y + ")");
+        System.out.println("Sprite: (" + sprite.getX() + ", " + sprite.getY() + ")");
         sprite.setColor(getColor());
         sprite.draw(batch);
     }

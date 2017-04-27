@@ -20,7 +20,7 @@ public class GameStage extends Stage {
         game = GravityGuyGame.instance();
         players = new ArrayList<Player>();
         blocks = new ArrayList<Block>();
-        world = new World(new Vector2(0f, 1f), true);
+        world = new World(new Vector2(0f, 0f), true);
         for (int i = 0; i < game.getNumberPlayers(); i++) {
             //TODO Missing set bounds
             Player player = new Player(world);
