@@ -2,7 +2,8 @@ package com.lpoo.gravityguy.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.lpoo.gravityguy.Game.GravityGuyGame;
+
+import Game.GravityGuy;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -12,6 +13,6 @@ public class DesktopLauncher {
         //config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
         //config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
         //config.fullscreen = true;
-        new LwjglApplication(GravityGuyGame.instance(), config);
+        new LwjglApplication(GravityGuy.instance(), config);
 	}
 }
