@@ -9,7 +9,7 @@ import Models.Entities.PlayerModel;
 
 public class PlayerBody extends EntityBody {
 
-    PlayerBody(World world, PlayerModel model) {
+    public PlayerBody(World world, PlayerModel model) {
         super(world, model);
     }
 

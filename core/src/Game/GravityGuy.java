@@ -3,6 +3,7 @@ package Game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import Views.GameView;
 import Views.MenuView;
@@ -11,15 +12,12 @@ public class GravityGuy extends Game {
 
     private static GravityGuy game = null;
 
-    public static final int MAX_PLAYERS = 4;
-    private static int number_players = 1;
-    private static AssetManager assetManager;
-    private static GameView gameView;
-    private static MenuView menuView;
-
-    private GravityGuy() {
-        assetManager = new AssetManager();
-    }
+    public final int MAX_PLAYERS = 4;
+    private int number_players = 1;
+    private AssetManager assetManager;
+    private GameView gameView;
+    private MenuView menuView;
+    private SpriteBatch spriteBatch;
 
     public static GravityGuy instance() {
         if (game == null)
@@ -29,17 +27,19 @@ public class GravityGuy extends Game {
 
     @Override
     public void create() {
+        assetManager = new AssetManager();
+        spriteBatch = new SpriteBatch();
         instance().loadAssets();
         instance().resetScreens();
         instance().setGameScreen();
     }
 
-    public void loadAssets() {
+    private void loadAssets() {
         assetManager.load("hero.png", Texture.class);
         assetManager.finishLoading();
     }
 
-    public static AssetManager getAssetManager() {
+    public AssetManager getAssetManager() {
         return assetManager;
     }
 
@@ -62,5 +62,9 @@ public class GravityGuy extends Game {
     public void resetScreens() {
         menuView = new MenuView();
         gameView = new GameView();
+    }
+
+    public SpriteBatch getSpriteBatch(){
+        return spriteBatch;
     }
 }

@@ -7,31 +7,37 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
+import Controller.Entities.BlockBody;
+import Controller.Entities.PlayerBody;
+import Models.GameModel;
+
 public class GameController implements ContactListener {
 
     private static GameController gameController = null;
+
+    private PlayerBody player;
+    private ArrayList<BlockBody> blocks;
     private World world;
 
+    private static final float LINEAR_SPEED = 10f; //TODO
+    private static final float GRAVITY = 10f; //TODO
 
     private GameController(){
-        world = new World(new Vector2(0, 10), true);
-
-       /* shipBody = new ShipBody(world, GameModel.getInstance().getShip());
-
-        List<AsteroidModel> asteroids = GameModel.getInstance().getAsteroids();
-        for (AsteroidModel asteroid : asteroids)
-            if (asteroid.getSize() == AsteroidModel.AsteroidSize.BIG)
-                new BigAsteroidBody(world, asteroid);
-            else if (asteroid.getSize() == AsteroidModel.AsteroidSize.MEDIUM)
-                new MediumAsteroidBody(world, asteroid);*/
-
+        world = new World(new Vector2(0, GRAVITY), true);
         world.setContactListener(this);
+        player = new PlayerBody(world, GameModel.instance().getPlayer());
     }
 
-    public GameController instance(){
+    public static GameController instance(){
         if(gameController == null)
             gameController = new GameController();
         return gameController;
+    }
+
+    public void update(float delta) {
+
     }
 
     @Override

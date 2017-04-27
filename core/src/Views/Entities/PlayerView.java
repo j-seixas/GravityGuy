@@ -9,7 +9,7 @@ import Game.GravityGuy;
 public class PlayerView extends EntityView {
 
     public PlayerView(){
-        Texture texture = GravityGuy.getAssetManager().get("hero.png");
+        Texture texture = GravityGuy.instance().getAssetManager().get("hero.png");
         sprite = new Sprite(texture, texture.getWidth(), texture.getHeight());
     }
 }
