@@ -13,7 +13,7 @@ public class GameModel {
     private PlayerModel player;
 
     private GameModel(){
-        player = new PlayerModel(100,0); //TODO
+        player = new PlayerModel(0, 200); //TODO
         blocks = new ArrayList<BlockModel>();
         blocks.add(new BlockModel(0,0)); //TODO
     }

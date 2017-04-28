@@ -47,11 +47,11 @@ public class GameView extends ScreenAdapter {
     }
 
     private void drawEntities(){
-        ArrayList<BlockModel> blocks = GameModel.instance().getBlocks();
+        /*ArrayList<BlockModel> blocks = GameModel.instance().getBlocks();
         for(BlockModel blockModel : blocks){
             blockView.update(blockModel);
             blockView.draw(game.getSpriteBatch());
-        }
+        }*/
 
         PlayerModel playerModel = GameModel.instance().getPlayer();
         playerView.update(playerModel);
@@ -61,6 +61,6 @@ public class GameView extends ScreenAdapter {
     private void drawBackground(){
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        playerView.draw(game.getSpriteBatch());
+        //playerView.draw(game.getSpriteBatch());
     }
 }

@@ -27,7 +27,7 @@ public class GameController implements ContactListener {
     private World world;
 
     private static final float LINEAR_SPEED = 10f; //TODO
-    private static final float GRAVITY = 10f; //TODO
+    private static final float GRAVITY = -10f; //TODO
 
     private GameController(){
         world = new World(new Vector2(0, GRAVITY), true);
@@ -46,6 +46,8 @@ public class GameController implements ContactListener {
     }
 
     public void update(float delta) {
+        world.step(delta, 6, 2);
+
         GameModel.instance().update(delta);
 
         Array<Body> bodies = new Array<Body>();

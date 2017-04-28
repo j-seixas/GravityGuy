@@ -9,8 +9,8 @@ import Game.GravityGuy;
 public class BackgroundView extends EntityView{
 
     public BackgroundView(){
-        Texture texture = GravityGuy.instance().getAssetManager().get("background.png", Texture.class);
-        texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        sprite = new Sprite(texture, texture.getWidth(), texture.getHeight());
+        //Texture texture = GravityGuy.instance().getAssetManager().get("background.png", Texture.class);
+        //texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        //sprite = new Sprite(texture, texture.getWidth(), texture.getHeight());
     }
 }
