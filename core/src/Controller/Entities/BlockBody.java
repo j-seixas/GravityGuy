@@ -8,7 +8,7 @@ import Models.Entities.BlockModel;
 
 public class BlockBody extends EntityBody{
 
-    BlockBody(World world, BlockModel model) {
+    public BlockBody(World world, BlockModel model) {
         super(world, model);
     }
 

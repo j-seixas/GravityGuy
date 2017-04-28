@@ -13,8 +13,9 @@ public class GameModel {
     private PlayerModel player;
 
     private GameModel(){
-        player = new PlayerModel(100,100); //TODO
+        player = new PlayerModel(100,0); //TODO
         blocks = new ArrayList<BlockModel>();
+        blocks.add(new BlockModel(0,0)); //TODO
     }
 
     public static GameModel instance(){

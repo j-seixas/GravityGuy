@@ -3,22 +3,23 @@ package Models.Entities;
 
 public abstract class EntityModel {
 
-    private int x, y;
+    private float x;
+    private float y;
 
-    public EntityModel(int x, int y){
+    public EntityModel(float x, float y){
         this.x = x;
         this.y = y;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setPosition(int x, int y){
+    public void setPosition(float x, float y){
         this.x = x;
         this.y = y;
     }
