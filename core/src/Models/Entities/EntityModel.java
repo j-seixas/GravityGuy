@@ -1,7 +1,7 @@
 package Models.Entities;
 
 
-public class EntityModel {
+public abstract class EntityModel {
 
     private int x, y;
 

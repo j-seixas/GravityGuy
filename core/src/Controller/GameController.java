@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import Controller.Entities.BlockBody;
 import Controller.Entities.PlayerBody;
+import Models.Entities.PlayerModel;
 import Models.GameModel;
 
 public class GameController implements ContactListener {
