@@ -12,8 +12,9 @@ import Views.MenuView;
 public class GravityGuy extends Game {
 
     private static GravityGuy game = null;
-    public static final int WIDTH = 700;
-    public static final int HEIGHT = 240;
+    public static final int WIDTH = 300;
+    public static final int HEIGHT = 200;
+    public static final float PPM = 100;
     public final int MAX_PLAYERS = 4;
     private int number_players = 1;
     private AssetManager assetManager;
