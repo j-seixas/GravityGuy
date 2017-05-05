@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -34,6 +35,7 @@ import Models.Entities.BlockModel;
 import Models.Entities.PlayerModel;
 import Models.GameModel;
 import Sprites.GravGuy;
+import Tools.PhysicsWorld;
 import Views.Entities.BackgroundView;
 import Views.Entities.BlockView;
 import Views.Entities.PlayerView;
@@ -43,6 +45,7 @@ import Views.Scenes.Hud;
 public class GameView extends ScreenAdapter {
 
     private GravityGuy game;
+    private TextureAtlas atlas;
     private Hud hud;
     private PlayerView playerView;
     private BlockView blockView;
@@ -70,6 +73,8 @@ public class GameView extends ScreenAdapter {
         camera = new OrthographicCamera();
         hud = new Hud(game.getSpriteBatch());
 
+        atlas = new TextureAtlas("GravityGuySprites.atlas");
+
         // viewport.apply();
         viewport = new FitViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
         // camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2, 0);
@@ -82,14 +87,16 @@ public class GameView extends ScreenAdapter {
 
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
-        player = new GravGuy(world);
+        player = new GravGuy(world, this);
 
         player.body.setLinearVelocity(new Vector2(1f, 0));
 
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-
+                if( contact.getFixtureA().getBody().getUserData() == "Final" || contact.getFixtureB().getBody().getUserData() == "Final"){
+                    //hud.setTestLable("WIN");
+                }
             }
 
             @Override
@@ -110,42 +117,7 @@ public class GameView extends ScreenAdapter {
             }
         });
 
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        //Blocks
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ GravityGuy.PPM, (rect.getY() + rect.getHeight() / 2)/ GravityGuy.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GravityGuy.PPM, rect.getHeight() / 2 / GravityGuy.PPM);
-            fdef.shape = shape;
-            fdef.friction = 0;
-            fdef.restitution = 0;
-            body.createFixture(fdef);
-
-        }
-
-        //FinalLine
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ GravityGuy.PPM, (rect.getY() + rect.getHeight() / 2)/ GravityGuy.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GravityGuy.PPM, rect.getHeight() / 2 / GravityGuy.PPM);
-            fdef.shape = shape;
-            fdef.friction = 1;
-            fdef.restitution = 0;
-            body.createFixture(fdef);
-
-        }
+        new PhysicsWorld(world, map);
     }
 
     @Override
@@ -166,6 +138,11 @@ public class GameView extends ScreenAdapter {
 
         b2dr.render(world, camera.combined);
 
+        game.getSpriteBatch().setProjectionMatrix(camera.combined);
+        game.getSpriteBatch().begin();
+        player.draw(game.getSpriteBatch());
+        game.getSpriteBatch().end();
+
         game.getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         /*
@@ -179,7 +156,7 @@ public class GameView extends ScreenAdapter {
 
     public void handleInput(float delta){
         if(Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            System.out.println("Touched");
+            //System.out.println("Touched");
             if(player.body.getGravityScale() == -1)
                 player.body.setGravityScale(1);
             else
@@ -217,5 +194,38 @@ public class GameView extends ScreenAdapter {
         Gdx.gl.glClearColor(1f, 1f, 1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         //playerView.draw(game.getSpriteBatch());
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
+    }
+
+    @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+    }
+
+    @Override
+    public void dispose() {
+        map.dispose();
+        renderer.dispose();
+        world.dispose();
+        b2dr.dispose();
+        hud.dispose();
     }
 }

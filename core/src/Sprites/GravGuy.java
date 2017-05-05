@@ -1,6 +1,7 @@
 package Sprites;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -8,18 +9,21 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Game.GravityGuy;
+import Views.GameView;
 
-/**
- * Created by jnuno on 04-May-17.
- */
 
 public class GravGuy extends Sprite {
     public World world;
     public Body body;
+    private TextureRegion jump;
 
-    public GravGuy(World world){
+    public GravGuy(World world, GameView screen){
+        super(screen.getAtlas().findRegion("0Jump"));
         this.world = world;
         createGravGuy();
+        jump = new TextureRegion(getTexture(), 0, 0, 567, 556);
+        setBounds(0, 0, 32 / GravityGuy.PPM, 31 / GravityGuy.PPM);
+        setRegion(jump);
     }
 
     public void createGravGuy(){

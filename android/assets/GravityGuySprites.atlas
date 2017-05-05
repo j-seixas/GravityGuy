@@ -1,0 +1,69 @@
+
+GravityGuySprites.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0Jump
+  rotate: false
+  xy: 2, 2
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+1Run
+  rotate: false
+  xy: 571, 2
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+2Run
+  rotate: false
+  xy: 1140, 2
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+3Run
+  rotate: false
+  xy: 2, 560
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+4Run
+  rotate: false
+  xy: 571, 560
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+5Run
+  rotate: false
+  xy: 1140, 560
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+6Run
+  rotate: false
+  xy: 2, 1118
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+7Run
+  rotate: false
+  xy: 571, 1118
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1
+8Run
+  rotate: false
+  xy: 1140, 1118
+  size: 567, 556
+  orig: 567, 556
+  offset: 0, 0
+  index: -1

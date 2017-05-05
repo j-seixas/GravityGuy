@@ -2,7 +2,6 @@ package Models.Entities;
 
 
 public abstract class EntityModel {
-
     private float x;
     private float y;
 

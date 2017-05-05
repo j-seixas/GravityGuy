@@ -33,10 +33,12 @@ public class GameController implements ContactListener {
         world = new World(new Vector2(0, GRAVITY), true);
         world.setContactListener(this);
         blocks = new ArrayList<BlockBody>();
-        player = new PlayerBody(world, GameModel.instance().getPlayer());
+       // player = new PlayerBody(world, GameModel.instance().getPlayer());
         ArrayList<BlockModel> blockModels = GameModel.instance().getBlocks();
+        int i = 1; //
         for(BlockModel blockModel : blockModels)
-            blocks.add(new BlockBody(world, blockModel));
+            i++; //
+           // blocks.add(new BlockBody(world, blockModel));
     }
 
     public static GameController instance(){
