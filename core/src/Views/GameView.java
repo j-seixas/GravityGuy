@@ -96,13 +96,14 @@ public class GameView extends ScreenAdapter {
             public void beginContact(Contact contact) {
                 if( contact.getFixtureA().getBody().getUserData() == "Final" || contact.getFixtureB().getBody().getUserData() == "Final"){
                     //hud.setTestLable("WIN");
+
                 }
             }
 
             @Override
             public void endContact(Contact contact) {
                 if( contact.getFixtureA().getBody().getUserData() == "Player" || contact.getFixtureB().getBody().getUserData() == "Player"){
-                    player.body.setLinearVelocity(new Vector2(1f, 0));
+                    player.body.setLinearVelocity(new Vector2(1f, player.body.getLinearVelocity().y));
                 }
             }
 
@@ -172,7 +173,11 @@ public class GameView extends ScreenAdapter {
 
         world.step(1/60f, 6, 2); //60fps, Nao sei o que é o 6 e o 2
 
-        camera.position.x = player.body.getPosition().x;
+        player.update(delta);
+
+        //camera.position.x = player.body.getPosition().x;
+        if(player.getState() != GravGuy.State.STOPPED)
+            camera.position.x += 1.5 / GravityGuy.PPM;
 
         camera.update();
         renderer.setView(camera);
