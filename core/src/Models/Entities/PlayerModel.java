@@ -1,33 +1,39 @@
 package Models.Entities;
 
 
-public class PlayerModel extends EntityModel{
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
-    public enum PlayerAction { RUNNING, FALLING }
+public class PlayerModel extends EntityModel {
+    public enum PlayerAction { FALLINGDOWN, FALLINGUP, RUNNING, STOPPED}
+    //public enum PlayerAction { RUNNING, FALLING }
 
-    private boolean flipped;
-    private PlayerAction playerAction;
+    private boolean gravity;
+    private PlayerAction prevAction, currAction;
 
-    public PlayerModel(int x, int y){
+    public PlayerModel(float x, float y){
         super(x,y);
-        flipped = false;
-        playerAction = PlayerAction.RUNNING;
+
+        gravity = true;
+        prevAction = PlayerAction.RUNNING;
+        currAction = PlayerAction.RUNNING;
     }
 
-    public PlayerAction getPlayerAction(){
-        return playerAction;
+    public PlayerAction getCurrPlayerAction(){ return this.currAction; }
+
+    public void setCurrPlayerAction(PlayerAction playerAction){
+
+        this.currAction = playerAction;
     }
 
-    public void setPlayerAction(PlayerAction playerAction){
-        this.playerAction = playerAction;
+    public PlayerAction getPrevPlayerAction(){ return this.prevAction; }
+
+    public void setPrevPlayerAction(PlayerAction playerAction){ this.prevAction = playerAction; }
+
+    public boolean isGravity(){ return gravity; }
+
+    public void setGravity(boolean gravity){
+        this.gravity = gravity;
     }
 
-    public boolean isFlipped(){
-        return flipped;
-    }
-
-    public void setFlipped(boolean flipped){
-        this.flipped = flipped;
-    }
 
 }

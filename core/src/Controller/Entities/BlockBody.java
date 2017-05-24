@@ -2,6 +2,7 @@ package Controller.Entities;
 
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -13,18 +14,39 @@ import Models.Entities.BlockModel;
 
 public class BlockBody extends EntityBody{
 
-    public BlockBody(World world, TiledMap map, Rectangle rect) {
-        super(world, map, rect);
+    private boolean isFinal;
+    private Rectangle rect;
 
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
 
-        shape.setAsBox(rect.getWidth() / 2 / GravityGuy.PPM, rect.getHeight() / 2 / GravityGuy.PPM);
-        fdef.shape = shape;
-        fdef.friction = 0;
-        fdef.restitution = 0;
-        body.createFixture(fdef);
+    public BlockBody(World world, Rectangle rect, BlockModel model, boolean isFinal) {
+        super(world, model);
+        this.isFinal = isFinal;
+
+        this.rect = rect;
+        createFixture();
     }
 
+    @Override
+    protected BodyDef createBodyDef() {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        return bodyDef;
+    }
+
+    @Override
+    protected void createFixture() {
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fixtureDef = new FixtureDef();
+
+        shape.setAsBox(rect.getWidth() / 2 / GravityGuy.PPM, rect.getHeight() / 2 / GravityGuy.PPM);
+        fixtureDef.shape = shape;
+        fixtureDef.friction = isFinal ? 1 : 0;
+        fixtureDef.restitution = 0;
+        body.createFixture(fixtureDef);
+    }
+
+    public boolean isFinal() {
+        return this.isFinal;
+    }
 
 }

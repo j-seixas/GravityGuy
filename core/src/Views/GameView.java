@@ -67,7 +67,7 @@ public class GameView extends ScreenAdapter {
     public GameView() {
         super();
         this.game = GravityGuy.instance();
-        playerView = new PlayerView();
+       // playerView = new PlayerView();
         blockView = new BlockView();
         backgroundView = new BackgroundView();
         camera = new OrthographicCamera();
@@ -156,7 +156,7 @@ public class GameView extends ScreenAdapter {
     }
 
     public void handleInput(float delta){
-        if(Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+        if((Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) && player.getState() == GravGuy.State.RUNNING){
             //System.out.println("Touched");
             if(player.body.getGravityScale() == -1)
                 player.body.setGravityScale(1);
@@ -191,7 +191,7 @@ public class GameView extends ScreenAdapter {
         }*/
 
         PlayerModel playerModel = GameModel.instance().getPlayer();
-        playerView.update(playerModel, viewport);
+       // playerView.update(playerModel, viewport);
         playerView.draw(game.getSpriteBatch());
     }
 

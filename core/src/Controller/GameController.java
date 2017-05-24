@@ -26,14 +26,14 @@ public class GameController implements ContactListener {
     private ArrayList<BlockBody> blocks;
     private World world;
 
-    private static final float LINEAR_SPEED = 10f; //TODO
-    private static final float GRAVITY = -10f; //TODO
+    private static final float LINEAR_SPEED = 1f; //TODO
+    private static final float GRAVITY = -5; //TODO
 
     private GameController(){
         world = new World(new Vector2(0, GRAVITY), true);
         world.setContactListener(this);
         blocks = new ArrayList<BlockBody>();
-       // player = new PlayerBody(world, GameModel.instance().getPlayer());
+        player = new PlayerBody(world, GameModel.instance().getPlayer());
         ArrayList<BlockModel> blockModels = GameModel.instance().getBlocks();
         int i = 1; //
         for(BlockModel blockModel : blockModels)
@@ -48,7 +48,7 @@ public class GameController implements ContactListener {
     }
 
     public void update(float delta) {
-        world.step(delta, 6, 2);
+        world.step(1/60f, 6, 2);
 
         GameModel.instance().update(delta);
 
@@ -65,7 +65,7 @@ public class GameController implements ContactListener {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
-        if(bodyA.getUserData() instanceof PlayerModel &&
+       /* if(bodyA.getUserData() instanceof PlayerModel &&
            bodyB.getUserData() instanceof PlayerModel)
             initPlayerCollision(bodyA, bodyB);
         else if(bodyA.getUserData() instanceof PlayerModel &&
@@ -73,7 +73,7 @@ public class GameController implements ContactListener {
             initBlockCollision(bodyA);
         else if(bodyA.getUserData() instanceof BlockBody &&
                 bodyB.getUserData() instanceof PlayerModel)
-            initBlockCollision(bodyB);
+            initBlockCollision(bodyB);*/
     }
 
     @Override
@@ -81,15 +81,15 @@ public class GameController implements ContactListener {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
-        if(bodyA.getUserData() instanceof PlayerModel &&
+        if(bodyA.getUserData() instanceof PlayerModel ||
                 bodyB.getUserData() instanceof PlayerModel)
-            endPlayerCollision(bodyA, bodyB);
-        else if(bodyA.getUserData() instanceof PlayerModel &&
+            player.setLinearVelocity(new Vector2(LINEAR_SPEED, player.getLinearVelocity().y));
+       /* else if(bodyA.getUserData() instanceof PlayerModel &&
                 bodyB.getUserData() instanceof BlockBody)
             endBlockCollision(bodyA);
         else if(bodyA.getUserData() instanceof BlockBody &&
                 bodyB.getUserData() instanceof PlayerModel)
-            endBlockCollision(bodyB);
+            endBlockCollision(bodyB);*/
     }
 
 
@@ -104,30 +104,5 @@ public class GameController implements ContactListener {
     }
 
 
-    private void initPlayerCollision(Body player_1, Body player_2){
-        PlayerModel player_model_1 = (PlayerModel) player_1.getUserData();
-        PlayerModel player_model_2 = (PlayerModel) player_2.getUserData();
 
-        player_model_1.setPlayerAction(PlayerModel.PlayerAction.RUNNING);
-        player_model_2.setPlayerAction(PlayerModel.PlayerAction.RUNNING);
-    }
-
-    private void initBlockCollision(Body player){
-        PlayerModel player_model = (PlayerModel) player.getUserData();
-        player_model.setPlayerAction(PlayerModel.PlayerAction.RUNNING);
-    }
-
-
-    private void endPlayerCollision(Body player_1, Body player_2) {
-        PlayerModel player_model_1 = (PlayerModel) player_1.getUserData();
-        PlayerModel player_model_2 = (PlayerModel) player_2.getUserData();
-
-        player_model_1.setPlayerAction(PlayerModel.PlayerAction.FALLING);
-        player_model_2.setPlayerAction(PlayerModel.PlayerAction.FALLING);
-    }
-
-    private void endBlockCollision(Body player) {
-        PlayerModel player_model = (PlayerModel) player.getUserData();
-        player_model.setPlayerAction(PlayerModel.PlayerAction.FALLING);
-    }
 }

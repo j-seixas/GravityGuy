@@ -10,7 +10,7 @@ import Views.GameView;
 import Views.MenuView;
 
 public class GravityGuy extends Game {
-
+    public enum State{ FALLINGDOWN, FALLINGUP, RUNNING, STOPPED};
     private static GravityGuy game = null;
     public static final int WIDTH = 300;
     public static final int HEIGHT = 200;

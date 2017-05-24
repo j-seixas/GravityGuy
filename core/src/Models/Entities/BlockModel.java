@@ -3,7 +3,7 @@ package Models.Entities;
 
 public class BlockModel extends EntityModel {
 
-    public BlockModel(int x, int y){
+    public BlockModel(float x, float y){
         super(x,y);
     }
 

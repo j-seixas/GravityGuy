@@ -11,28 +11,23 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Controller.Entities.BlockBody;
-import Controller.Entities.FinalBlockBody;
-import Game.GravityGuy;
+import Models.Entities.BlockModel;
 
 public class PhysicsWorld {
     public PhysicsWorld(World world, TiledMap map) {
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
 
         //Blocks
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new BlockBody(world, map, rect);
+            new BlockBody(world, rect, new BlockModel(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2), false);
         }
 
         //FinalLine
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new FinalBlockBody(world, map, rect);
+            new BlockBody(world, rect, new BlockModel(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2), true);
         }
     }
 }
