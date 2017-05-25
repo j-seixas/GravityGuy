@@ -23,7 +23,7 @@ public class PlayerView extends Sprite {
     private PlayerModel model;
 
 
-    public PlayerView(World world, PlayerModel model, GameView screen){
+    public PlayerView(PlayerModel model, GameView screen){
         super(screen.getAtlas().findRegion("Jump"));
         stateTimer = 0;
         this.model = model;
@@ -47,7 +47,7 @@ public class PlayerView extends Sprite {
 
     public void update(float delta){
         //setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
-        setPosition(model.getX()- getWidth() / 2, model.getY() - getHeight() / 2);
+        setPosition(model.getX() - getWidth() / 2 , model.getY() - getHeight() / 2 );
         setRegion(getFrame(delta));
     }
 

@@ -34,11 +34,8 @@ public class GameController implements ContactListener {
         world.setContactListener(this);
         blocks = new ArrayList<BlockBody>();
         player = new PlayerBody(world, GameModel.instance().getPlayer());
-        ArrayList<BlockModel> blockModels = GameModel.instance().getBlocks();
-        int i = 1; //
-        for(BlockModel blockModel : blockModels)
-            i++; //
-           // blocks.add(new BlockBody(world, blockModel));
+        player.setLinearVelocity(new Vector2(LINEAR_SPEED, 0));
+
     }
 
     public static GameController instance(){
@@ -50,30 +47,19 @@ public class GameController implements ContactListener {
     public void update(float delta) {
         world.step(1/60f, 6, 2);
 
+        player.update();
         GameModel.instance().update(delta);
 
-        Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
-        for (Body body : bodies) {
-            //verifyBounds(body); TODO
-            ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
-        }
     }
+
+    public World getWorld(){ return world; }
 
     @Override
     public void beginContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
-       /* if(bodyA.getUserData() instanceof PlayerModel &&
-           bodyB.getUserData() instanceof PlayerModel)
-            initPlayerCollision(bodyA, bodyB);
-        else if(bodyA.getUserData() instanceof PlayerModel &&
-                bodyB.getUserData() instanceof BlockBody)
-            initBlockCollision(bodyA);
-        else if(bodyA.getUserData() instanceof BlockBody &&
-                bodyB.getUserData() instanceof PlayerModel)
-            initBlockCollision(bodyB);*/
+
     }
 
     @Override
@@ -84,12 +70,7 @@ public class GameController implements ContactListener {
         if(bodyA.getUserData() instanceof PlayerModel ||
                 bodyB.getUserData() instanceof PlayerModel)
             player.setLinearVelocity(new Vector2(LINEAR_SPEED, player.getLinearVelocity().y));
-       /* else if(bodyA.getUserData() instanceof PlayerModel &&
-                bodyB.getUserData() instanceof BlockBody)
-            endBlockCollision(bodyA);
-        else if(bodyA.getUserData() instanceof BlockBody &&
-                bodyB.getUserData() instanceof PlayerModel)
-            endBlockCollision(bodyB);*/
+
     }
 
 

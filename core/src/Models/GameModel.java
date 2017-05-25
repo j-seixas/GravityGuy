@@ -8,14 +8,11 @@ import Models.Entities.PlayerModel;
 public class GameModel {
 
     private static GameModel gameModel = null;
-
-    private ArrayList<BlockModel> blocks;
     private PlayerModel player;
 
     private GameModel(){
-        player = new PlayerModel(32, 32); //TODO
-        blocks = new ArrayList<BlockModel>();
-        blocks.add(new BlockModel(0,0)); //TODO
+        player = new PlayerModel(32, 32);
+
     }
 
     public static GameModel instance(){
@@ -24,9 +21,6 @@ public class GameModel {
         return gameModel;
     }
 
-    public ArrayList<BlockModel> getBlocks() {
-        return blocks;
-    }
 
     public PlayerModel getPlayer() {
         return player;
@@ -35,4 +29,5 @@ public class GameModel {
     public void update(float delta){
 
     }
+
 }

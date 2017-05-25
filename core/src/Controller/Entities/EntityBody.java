@@ -20,21 +20,17 @@ public abstract class EntityBody {
     protected Body body;
 
     EntityBody(World world, EntityModel model) {
-      //  this.world = world;
 
         BodyDef bodyDef = createBodyDef();
-        bodyDef.position.set(model.getX() / GravityGuy.PPM, model.getY() / GravityGuy.PPM);
+        bodyDef.position.set(model.getX(), model.getY());
         body = world.createBody(bodyDef);
         body.setUserData(model);
-        //createFixture();
+
     }
 
     protected abstract BodyDef createBodyDef();
     protected abstract void createFixture();
 
-    /*protected void createFixture(FixtureDef fixtureDef){
-        body.createFixture(fixtureDef);
-    }*/
 
     public float getX() {
         return body.getPosition().x;

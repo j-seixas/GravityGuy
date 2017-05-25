@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class PlayerModel extends EntityModel {
     public enum PlayerAction { FALLINGDOWN, FALLINGUP, RUNNING, STOPPED}
-    //public enum PlayerAction { RUNNING, FALLING }
 
     private boolean gravity;
     private PlayerAction prevAction, currAction;
