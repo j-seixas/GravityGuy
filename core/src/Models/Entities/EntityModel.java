@@ -1,14 +1,15 @@
 package Models.Entities;
 
 
-public abstract class EntityModel {
+import Game.GravityGuy;
 
+public abstract class EntityModel {
     private float x;
     private float y;
 
     public EntityModel(float x, float y){
-        this.x = x;
-        this.y = y;
+        this.x = x / GravityGuy.PPM;
+        this.y = y / GravityGuy.PPM;
     }
 
     public float getY() {

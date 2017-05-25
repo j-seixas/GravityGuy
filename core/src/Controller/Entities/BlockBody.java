@@ -1,15 +1,29 @@
 package Controller.Entities;
 
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import Game.GravityGuy;
 import Models.Entities.BlockModel;
 
 public class BlockBody extends EntityBody{
 
-    public BlockBody(World world, BlockModel model) {
+    private boolean isFinal;
+    private Rectangle rect;
+
+
+    public BlockBody(World world, Rectangle rect, BlockModel model, boolean isFinal) {
         super(world, model);
+        this.isFinal = isFinal;
+
+        this.rect = rect;
+        createFixture();
     }
 
     @Override
@@ -21,6 +35,18 @@ public class BlockBody extends EntityBody{
 
     @Override
     protected void createFixture() {
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fixtureDef = new FixtureDef();
 
+        shape.setAsBox(rect.getWidth() / 2 / GravityGuy.PPM, rect.getHeight() / 2 / GravityGuy.PPM);
+        fixtureDef.shape = shape;
+        fixtureDef.friction = isFinal ? 1 : 0;
+        fixtureDef.restitution = 0;
+        body.createFixture(fixtureDef);
     }
+
+    public boolean isFinal() {
+        return this.isFinal;
+    }
+
 }

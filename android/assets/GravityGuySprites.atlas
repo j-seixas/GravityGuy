@@ -1,0 +1,20 @@
+
+GravityGuySprites.png
+size: 3200,800
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Jump
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Run
+  rotate: false
+  xy: 0, 400
+  size: 3200, 400
+  orig: 3200, 400
+  offset: 0, 0
+  index: -1
