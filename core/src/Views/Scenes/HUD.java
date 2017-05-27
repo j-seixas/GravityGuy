@@ -1,6 +1,7 @@
 package Views.Scenes;
 
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,8 +15,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import Game.GravityGuy;
 
-public class Hud implements Disposable{
-    public Stage stage;
+public class HUD implements Disposable{
+    private Stage stage;
     private Viewport viewport;
 
     private Integer worldTimer;
@@ -24,11 +25,11 @@ public class Hud implements Disposable{
     Table table;
     Label timeLable, levelLable, testLable;
 
-    public Hud(SpriteBatch sb){
+    public HUD(){
         worldTimer = 300;
         timeCount = 0;
         viewport = new FitViewport(GravityGuy.WIDTH, GravityGuy.HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+        stage = new Stage(viewport, GravityGuy.instance().getSpriteBatch());
 
         table = new Table();
         table.top();
@@ -44,19 +45,14 @@ public class Hud implements Disposable{
         //table.row();
         stage.addActor(table);
     }
-/*
-    public void setTestLable(String str){
 
-        table = new Table();
-        timeLable = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
-        levelLable = new Label(String.format("Level 1"), new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
-        testLable = new Label(String.format("WIN"), new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
-        table.add(levelLable).expandX().padTop(10);
-        table.add(testLable).expandX().padTop(10);
-        table.add(timeLable).expandX().padTop(10);
+    public void draw(){
+        stage.draw();
+    }
 
-
-    }*/
+    public Camera getCamera(){
+        return stage.getCamera();
+    }
 
     @Override
     public void dispose() {

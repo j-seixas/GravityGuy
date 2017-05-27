@@ -18,7 +18,7 @@ import Models.Entities.PlayerModel;
 import Models.GameModel;
 import Tools.PhysicsWorld;
 import Views.Entities.PlayerView;
-import Views.Scenes.Hud;
+import Views.Scenes.HUD;
 
 
 public class GameView extends ScreenAdapter {
@@ -27,7 +27,7 @@ public class GameView extends ScreenAdapter {
     private GameState state;
     private GravityGuy game;
     private TextureAtlas atlas;
-    private Hud hud;
+    private HUD HUD;
 
     private GameController gameController;
     private GameModel gameModel;
@@ -47,29 +47,28 @@ public class GameView extends ScreenAdapter {
 
     public GameView() {
         super();
-        this.game = GravityGuy.instance();
+        game = GravityGuy.instance();
 
         camera = new OrthographicCamera();
-        hud = new Hud(game.getSpriteBatch());
+        HUD = new HUD();
 
         state = GameState.PLAYING;
 
         atlas = new TextureAtlas("GravityGuySprites.atlas");
 
-        this.gameController = GameController.instance();
-        this.gameModel = GameModel.instance();
+        gameController = GameController.instance();
+        gameModel = GameModel.instance();
         playerView = new PlayerView(gameModel.getPlayer(), this);
 
         viewport = new FitViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
+        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+
         maploader = new TmxMapLoader();
         map = maploader.load("map2.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
 
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-
         b2dr = new Box2DDebugRenderer();
-
 
         new PhysicsWorld(gameController.getWorld(), map);
     }
@@ -83,24 +82,22 @@ public class GameView extends ScreenAdapter {
     @Override
     public void render(float delta) {
         update(delta);
-        //GameController.instance().update(delta);
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
 
-        //b2dr.render(gameController.getWorld(), camera.combined);
+        b2dr.render(gameController.getWorld(), camera.combined);
 
         game.getSpriteBatch().setProjectionMatrix(camera.combined);
-        game.getSpriteBatch().begin();
 
+        game.getSpriteBatch().begin();
         playerView.draw(game.getSpriteBatch());
         game.getSpriteBatch().end();
 
-        game.getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
-
+        game.getSpriteBatch().setProjectionMatrix(HUD.getCamera().combined);
+        HUD.draw();
     }
 
     public void handleInput(float delta){
@@ -112,16 +109,13 @@ public class GameView extends ScreenAdapter {
             else
                 gameModel.getPlayer().setGravity(true);
         }
-
-
-
     }
 
     public void update(float delta){
         handleInput(delta);
 
         gameController.update(delta);
-        gameModel.update(delta); // Doesn't have anything, can be removed
+        gameModel.update(delta);
         playerView.update(delta);
 
         if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0)
@@ -164,8 +158,7 @@ public class GameView extends ScreenAdapter {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-        //world.dispose();
         b2dr.dispose();
-        hud.dispose();
+        HUD.dispose();
     }
 }

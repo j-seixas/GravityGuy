@@ -46,7 +46,6 @@ public class PlayerView extends Sprite {
 
 
     public void update(float delta){
-        //setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
         setPosition(model.getX() - getWidth() / 2 , model.getY() - getHeight() / 2 );
         setRegion(getFrame(delta));
     }

@@ -1,7 +1,6 @@
 package Models.Entities;
 
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class PlayerModel extends EntityModel {
     public enum PlayerAction { FALLINGDOWN, FALLINGUP, RUNNING, STOPPED}
@@ -22,7 +21,6 @@ public class PlayerModel extends EntityModel {
     public PlayerAction getCurrPlayerAction(){ return this.currAction; }
 
     public void setCurrPlayerAction(PlayerAction playerAction){
-
         this.currAction = playerAction;
     }
 
