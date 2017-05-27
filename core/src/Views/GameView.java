@@ -118,6 +118,7 @@ public class GameView extends ScreenAdapter {
         gameModel.update(delta);
         playerView.update(delta);
 
+
         if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0)
             state = GameState.LOST;
 
@@ -126,6 +127,7 @@ public class GameView extends ScreenAdapter {
             camera.position.x += 1.5 / GravityGuy.PPM;
             //camera.position.x = gameModel.getPlayer().getX();
         camera.update();
+        HUD.update(delta);
         renderer.setView(camera);
     }
 

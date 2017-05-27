@@ -26,7 +26,7 @@ public class HUD implements Disposable{
     Label timeLable, levelLable, testLable;
 
     public HUD(){
-        worldTimer = 300;
+        worldTimer = 0;
         timeCount = 0;
         viewport = new FitViewport(GravityGuy.WIDTH, GravityGuy.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, GravityGuy.instance().getSpriteBatch());
@@ -48,6 +48,15 @@ public class HUD implements Disposable{
 
     public void draw(){
         stage.draw();
+    }
+
+    public void update(float delta){
+        timeCount += delta;
+        if(timeCount >= 1){
+            worldTimer += 1;
+            timeLable.setText(String.format("%03d", worldTimer));
+            timeCount = 0;
+        }
     }
 
     public Camera getCamera(){
