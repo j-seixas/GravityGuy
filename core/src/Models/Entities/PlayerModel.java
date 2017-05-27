@@ -6,13 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class PlayerModel extends EntityModel {
     public enum PlayerAction { FALLINGDOWN, FALLINGUP, RUNNING, STOPPED}
 
-    private boolean gravity;
+    private boolean gravity, finishLine;
     private PlayerAction prevAction, currAction;
+
 
     public PlayerModel(float x, float y){
         super(x,y);
 
         gravity = true;
+        finishLine = false;
         prevAction = PlayerAction.RUNNING;
         currAction = PlayerAction.RUNNING;
     }
@@ -34,5 +36,12 @@ public class PlayerModel extends EntityModel {
         this.gravity = gravity;
     }
 
+    public boolean isFinishLine() {
+        return finishLine;
+    }
+
+    public void setFinishLine(boolean finishLine) {
+        this.finishLine = finishLine;
+    }
 
 }

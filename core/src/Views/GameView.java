@@ -22,7 +22,9 @@ import Views.Scenes.Hud;
 
 
 public class GameView extends ScreenAdapter {
+    public enum GameState {PLAYING, WON, LOST}
 
+    private GameState state;
     private GravityGuy game;
     private TextureAtlas atlas;
     private Hud hud;
@@ -50,6 +52,8 @@ public class GameView extends ScreenAdapter {
         camera = new OrthographicCamera();
         hud = new Hud(game.getSpriteBatch());
 
+        state = GameState.PLAYING;
+
         atlas = new TextureAtlas("GravityGuySprites.atlas");
 
         this.gameController = GameController.instance();
@@ -58,7 +62,7 @@ public class GameView extends ScreenAdapter {
 
         viewport = new FitViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
         maploader = new TmxMapLoader();
-        map = maploader.load("map1.tmx");
+        map = maploader.load("map2.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
 
@@ -86,7 +90,7 @@ public class GameView extends ScreenAdapter {
 
         renderer.render();
 
-        b2dr.render(gameController.getWorld(), camera.combined);
+        //b2dr.render(gameController.getWorld(), camera.combined);
 
         game.getSpriteBatch().setProjectionMatrix(camera.combined);
         game.getSpriteBatch().begin();
@@ -120,9 +124,13 @@ public class GameView extends ScreenAdapter {
         gameModel.update(delta); // Doesn't have anything, can be removed
         playerView.update(delta);
 
-        if(gameModel.getPlayer().getCurrPlayerAction() != PlayerModel.PlayerAction.STOPPED)
-            camera.position.x += 1.5 / GravityGuy.PPM;
+        if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0)
+            state = GameState.LOST;
 
+        if(gameModel.getPlayer().getCurrPlayerAction() != PlayerModel.PlayerAction.STOPPED
+                && state == GameState.PLAYING)
+            camera.position.x += 1.5 / GravityGuy.PPM;
+            //camera.position.x = gameModel.getPlayer().getX();
         camera.update();
         renderer.setView(camera);
     }

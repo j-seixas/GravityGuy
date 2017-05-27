@@ -12,15 +12,18 @@ import com.badlogic.gdx.physics.box2d.World;
 import Game.GravityGuy;
 import Models.Entities.BlockModel;
 
+
 public class BlockBody extends EntityBody{
 
-    private boolean isFinal;
+
     private Rectangle rect;
+    private BlockModel model;
 
 
-    public BlockBody(World world, Rectangle rect, BlockModel model, boolean isFinal) {
+    public BlockBody(World world, Rectangle rect, BlockModel model) {
         super(world, model);
-        this.isFinal = isFinal;
+        this.model = model;
+
 
         this.rect = rect;
         createFixture();
@@ -40,13 +43,13 @@ public class BlockBody extends EntityBody{
 
         shape.setAsBox(rect.getWidth() / 2 / GravityGuy.PPM, rect.getHeight() / 2 / GravityGuy.PPM);
         fixtureDef.shape = shape;
-        fixtureDef.friction = isFinal ? 1 : 0;
+        fixtureDef.friction = model.isFinal() ? 1 : 0;
         fixtureDef.restitution = 0;
         body.createFixture(fixtureDef);
     }
 
     public boolean isFinal() {
-        return this.isFinal;
+        return model.isFinal();
     }
 
 }

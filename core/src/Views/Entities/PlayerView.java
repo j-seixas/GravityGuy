@@ -65,6 +65,7 @@ public class PlayerView extends Sprite {
                 break;
             default:
                 region = runningGG.getKeyFrame(1);
+                break;
         }
 
         if(!model.isGravity() && !region.isFlipY())

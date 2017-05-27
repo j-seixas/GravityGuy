@@ -9,9 +9,10 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "Gravity Guy";
-        //config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
-        //config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+        config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+        config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
         //config.fullscreen = true;
+
         new LwjglApplication(GravityGuy.instance(), config);
 	}
 }

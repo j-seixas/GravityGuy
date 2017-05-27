@@ -20,14 +20,14 @@ public class PhysicsWorld {
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new BlockBody(world, rect, new BlockModel(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2), false);
+            new BlockBody(world, rect, new BlockModel(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2, false));
         }
 
         //FinalLine
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new BlockBody(world, rect, new BlockModel(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2), true);
+            new BlockBody(world, rect, new BlockModel(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2, true));
         }
     }
 }

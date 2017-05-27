@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import Controller.Entities.BlockBody;
 import Controller.Entities.PlayerBody;
+import Game.GravityGuy;
 import Models.Entities.BlockModel;
 import Models.Entities.EntityModel;
 import Models.Entities.PlayerModel;
@@ -26,8 +27,8 @@ public class GameController implements ContactListener {
     private ArrayList<BlockBody> blocks;
     private World world;
 
-    private static final float LINEAR_SPEED = 1f; //TODO
-    private static final float GRAVITY = -5; //TODO
+    private static float LINEAR_SPEED = 1f;
+    private static final float GRAVITY = -5;
 
     private GameController(){
         world = new World(new Vector2(0, GRAVITY), true);
@@ -47,19 +48,53 @@ public class GameController implements ContactListener {
     public void update(float delta) {
         world.step(1/60f, 6, 2);
 
-        player.update();
-        GameModel.instance().update(delta);
+        /*if(player.getLinearVelocity().x != 0)
+            player.setLinearVelocity(new Vector2(LINEAR_SPEED, player.getLinearVelocity().y));
+        LINEAR_SPEED += 0.001;*/
 
+        //player.update();
+
+        //GameModel.instance().update(delta);
+        updatePlayer();
+    }
+
+    public void updatePlayer(){
+        if(((PlayerModel) player.getUserData()).isGravity())
+            player.getBody().setGravityScale(1);
+        else
+            player.getBody().setGravityScale(-1);
+
+
+        if(player.getBody().getLinearVelocity().y > 0){
+            ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.FALLINGUP);
+        } else if(player.getBody().getLinearVelocity().y < 0)
+            ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.FALLINGDOWN);
+        else if(player.getBody().getLinearVelocity().y == 0 && player.getBody().getLinearVelocity().x != 0)
+            ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.RUNNING);
+        else if(((PlayerModel) player.getUserData()).isFinishLine())
+            ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.STOPPED);
+
+        ((PlayerModel) player.getUserData()).setPosition(player.getBody().getPosition().x, player.getBody().getPosition().y);
     }
 
     public World getWorld(){ return world; }
+
+    public float getVelocity() {return LINEAR_SPEED;}
+
 
     @Override
     public void beginContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
-
+        if(bodyA.getUserData() instanceof PlayerModel && bodyB.getUserData() instanceof BlockModel
+                && ((BlockModel) bodyB.getUserData()).isFinal())
+            //((PlayerModel) bodyA.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.STOPPED);
+            ((PlayerModel) bodyA.getUserData()).setFinishLine(true);
+        else if(bodyB.getUserData() instanceof PlayerModel && bodyA.getUserData() instanceof BlockModel
+                && ((BlockModel) bodyA.getUserData()).isFinal())
+           // ((PlayerModel) bodyB.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.STOPPED);
+            ((PlayerModel) bodyB.getUserData()).setFinishLine(true);
     }
 
     @Override

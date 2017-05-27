@@ -18,7 +18,7 @@ public class PlayerBody extends EntityBody {
         super(world, model);
         this.model = model;
         createFixture();
-
+        body.setSleepingAllowed(false);
     }
 
     @Override
@@ -41,24 +41,12 @@ public class PlayerBody extends EntityBody {
     }
 
     public void updatePlayerAction(){
-        if(body.getLinearVelocity().y > 0){
-            model.setCurrPlayerAction(PlayerModel.PlayerAction.FALLINGUP);
-        } else if(body.getLinearVelocity().y < 0)
-            model.setCurrPlayerAction(PlayerModel.PlayerAction.FALLINGDOWN);
-        else if(body.getLinearVelocity().y == 0 && body.getLinearVelocity().x != 0)
-            model.setCurrPlayerAction(PlayerModel.PlayerAction.RUNNING);
-        else
-            model.setCurrPlayerAction(PlayerModel.PlayerAction.STOPPED);
+
     }
 
     public void update(){
 
-        if(model.isGravity())
-            body.setGravityScale(1);
-        else
-            body.setGravityScale(-1);
 
-        updatePlayerAction();
-        model.setPosition(body.getPosition().x, body.getPosition().y);
+
     }
 }
