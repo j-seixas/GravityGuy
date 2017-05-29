@@ -95,6 +95,7 @@ public class GameController implements ContactListener {
                 && ((BlockModel) bodyA.getUserData()).isFinal())
            // ((PlayerModel) bodyB.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.STOPPED);
             ((PlayerModel) bodyB.getUserData()).setFinishLine(true);
+
     }
 
     @Override

@@ -2,11 +2,13 @@ package Game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import Views.GameView;
+import Views.LoadingScreen;
 import Views.MenuView;
 
 public class GravityGuy extends Game {
@@ -15,11 +17,15 @@ public class GravityGuy extends Game {
     public static final float PPM = 100;
     public static final int MAX_PLAYERS = 4;
 
+
     private int number_players = 1;
     private AssetManager assetManager;
     private GameView gameView;
     private MenuView menuView;
+
     private SpriteBatch spriteBatch;
+    private OrthographicCamera camera;
+
     private static GravityGuy game = null;
 
 
@@ -29,14 +35,18 @@ public class GravityGuy extends Game {
         return game;
     }
 
+
     @Override
     public void create() {
         assetManager = new AssetManager();
+        camera = new OrthographicCamera();
+
         spriteBatch = new SpriteBatch();
         instance().loadAssets();
         menuView = new MenuView();
-        gameView = new GameView();
-        instance().setGameScreen();
+//        gameView = new GameView();
+        //instance().setGameScreen();
+        instance().setScreen(new LoadingScreen());
     }
 
     private void loadAssets() { assetManager.finishLoading(); }
@@ -58,10 +68,19 @@ public class GravityGuy extends Game {
     }
 
     public void setGameScreen() {
+        gameView = new GameView();
         setScreen(gameView);
     }
 
     public SpriteBatch getSpriteBatch(){
         return spriteBatch;
+    }
+
+    public OrthographicCamera getCamera() {return camera; }
+
+    @Override
+    public void dispose() {
+        assetManager.dispose();
+        spriteBatch.dispose();
     }
 }

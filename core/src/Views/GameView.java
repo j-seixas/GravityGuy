@@ -37,7 +37,6 @@ public class GameView extends ScreenAdapter {
     private OrthographicCamera camera;
 
     //Tiles
-    private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
@@ -49,12 +48,12 @@ public class GameView extends ScreenAdapter {
         super();
         game = GravityGuy.instance();
 
-        camera = new OrthographicCamera();
+        camera = game.getCamera();
         HUD = new HUD();
 
         state = GameState.PLAYING;
 
-        atlas = new TextureAtlas("GravityGuySprites.atlas");
+        atlas = game.getAssetManager().get("GravityGuySprites.atlas");
 
         gameController = GameController.instance();
         gameModel = GameModel.instance();
@@ -63,8 +62,8 @@ public class GameView extends ScreenAdapter {
         viewport = new FitViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
 
-        maploader = new TmxMapLoader();
-        map = maploader.load("map2.tmx");
+
+        map = game.getAssetManager().get("map2.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
 
@@ -124,8 +123,9 @@ public class GameView extends ScreenAdapter {
 
         if(gameModel.getPlayer().getCurrPlayerAction() != PlayerModel.PlayerAction.STOPPED
                 && state == GameState.PLAYING)
-            camera.position.x += 1.5 / GravityGuy.PPM;
-            //camera.position.x = gameModel.getPlayer().getX();
+            //camera.position.x = gameController.getVelocity() * HUD.getTime() ;
+           // camera.position.x += 1.5 / GravityGuy.PPM;
+            camera.position.x = gameModel.getPlayer().getX();
         camera.update();
         HUD.update(delta);
         renderer.setView(camera);

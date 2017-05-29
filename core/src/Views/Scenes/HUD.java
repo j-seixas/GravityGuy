@@ -59,6 +59,8 @@ public class HUD implements Disposable{
         }
     }
 
+    public float getTime(){ return worldTimer + timeCount;}
+
     public Camera getCamera(){
         return stage.getCamera();
     }
