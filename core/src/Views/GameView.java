@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Controller.GameController;
 import Game.GravityGuy;
@@ -33,7 +34,7 @@ public class GameView extends ScreenAdapter {
     private GameModel gameModel;
     private PlayerView playerView;
 
-    private FitViewport viewport;
+    private StretchViewport viewport;
     private OrthographicCamera camera;
 
     //Tiles
@@ -49,27 +50,27 @@ public class GameView extends ScreenAdapter {
         game = GravityGuy.instance();
 
         camera = game.getCamera();
-        HUD = new HUD();
+
 
         state = GameState.PLAYING;
 
-        atlas = game.getAssetManager().get("GravityGuySprites.atlas");
+
 
         gameController = GameController.instance();
         gameModel = GameModel.instance();
-        playerView = new PlayerView(gameModel.getPlayer(), this);
-
-        viewport = new FitViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
 
 
-        map = game.getAssetManager().get("map2.tmx");
+        viewport = new StretchViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
 
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
+
+
+
+
+
 
         b2dr = new Box2DDebugRenderer();
 
-        new PhysicsWorld(gameController.getWorld(), map);
+
     }
 
     @Override
@@ -87,7 +88,7 @@ public class GameView extends ScreenAdapter {
 
         renderer.render();
 
-        b2dr.render(gameController.getWorld(), camera.combined);
+        //b2dr.render(gameController.getWorld(), camera.combined);
 
         game.getSpriteBatch().setProjectionMatrix(camera.combined);
 
@@ -138,7 +139,16 @@ public class GameView extends ScreenAdapter {
 
     @Override
     public void show() {
-        super.show();
+        atlas = game.getAssetManager().get("GravityGuySprites.atlas");
+        playerView = new PlayerView(gameModel.getPlayer(), this);
+
+        HUD = new HUD();
+
+        map = game.getAssetManager().get("map2.tmx");
+        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
+        new PhysicsWorld(gameController.getWorld(), map);
+        //super.show();
     }
 
     @Override

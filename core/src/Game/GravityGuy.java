@@ -1,15 +1,24 @@
 package Game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import Views.GameView;
 import Views.LoadingScreen;
 import Views.MenuView;
+import Views.SettingsScreen;
 
 public class GravityGuy extends Game {
     public static final int WIDTH = 300;
@@ -22,12 +31,15 @@ public class GravityGuy extends Game {
     private AssetManager assetManager;
     private GameView gameView;
     private MenuView menuView;
+    private LoadingScreen loadingScreen;
+    private SettingsScreen settingsScreen;
 
     private SpriteBatch spriteBatch;
     private OrthographicCamera camera;
 
     private static GravityGuy game = null;
-
+    private BitmapFont font;
+    private Skin skin;
 
     public static GravityGuy instance() {
         if (game == null)
@@ -42,14 +54,17 @@ public class GravityGuy extends Game {
         camera = new OrthographicCamera();
 
         spriteBatch = new SpriteBatch();
-        instance().loadAssets();
+       // instance().loadAssets();
         menuView = new MenuView();
-//        gameView = new GameView();
+        gameView = new GameView();
+        settingsScreen = new SettingsScreen();
         //instance().setGameScreen();
-        instance().setScreen(new LoadingScreen());
+        loadingScreen = new LoadingScreen();
+        instance().setScreen(loadingScreen);
+
     }
 
-    private void loadAssets() { assetManager.finishLoading(); }
+    //private void loadAssets() { assetManager.finishLoading(); }
 
     public AssetManager getAssetManager() {
         return assetManager;
@@ -68,9 +83,11 @@ public class GravityGuy extends Game {
     }
 
     public void setGameScreen() {
-        gameView = new GameView();
+       // gameView = new GameView();
         setScreen(gameView);
     }
+
+    public void setSettingsScreen() {setScreen(settingsScreen);}
 
     public SpriteBatch getSpriteBatch(){
         return spriteBatch;
@@ -78,8 +95,55 @@ public class GravityGuy extends Game {
 
     public OrthographicCamera getCamera() {return camera; }
 
+    public void initFonts(){
+        FreeTypeFontGenerator generator = assetManager.get("Prime Regular.otf");
+        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+       // params.borderStraight = true;
+        params.genMipMaps = true;
+        params.minFilter = Texture.TextureFilter.MipMapLinearLinear;
+        params.magFilter = Texture.TextureFilter.Linear;
+
+        params.size = 24;
+        params.color = Color.WHITE;
+        params.borderWidth = 1;
+        params.borderColor = Color.BLACK;
+        //params.shadowOffsetX = 1;
+        //params.renderCount = 500;
+        font = generator.generateFont(params);
+
+        //font = new BitmapFont(Gdx.files.internal("consolas.fnt"), Gdx.files.internal("consolas.png"), false);
+        //font.setColor(Color.WHITE);
+        font.setUseIntegerPositions(false);
+
+        /*Texture texture = new Texture(Gdx.files.internal("font.png"), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal("font.fnt"), new TextureRegion(texture), false);*/
+    }
+
+    public BitmapFont getFont() {
+        return font;
+    }
+
+    public void initSkin(){
+        skin = new Skin();
+        skin.addRegions(assetManager.get("uiskin.atlas", TextureAtlas.class));
+        skin.add("default-font", font);
+        skin.load(Gdx.files.internal("uiskin.json"));
+        skin.getFont("default-font").getData().setScale(0.33f);
+
+    }
+
+    public Skin getSkin() {
+        return skin;
+    }
+
     @Override
     public void dispose() {
+        font.dispose();
+        menuView.dispose();
+        gameView.dispose();
+        loadingScreen.dispose();
         assetManager.dispose();
         spriteBatch.dispose();
     }

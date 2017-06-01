@@ -35,8 +35,10 @@ public class HUD implements Disposable{
         table.top();
         table.setFillParent(true);
 
-        timeLable = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
-        levelLable = new Label(String.format("Level 1"), new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
+
+
+        timeLable = new Label(String.format("%03d", worldTimer), GravityGuy.instance().getSkin());//new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
+        levelLable = new Label(String.format("LEVEL 1"),GravityGuy.instance().getSkin()); //new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
         testLable = new Label(String.format("TEST"), new Label.LabelStyle(new BitmapFont(), Color.WHITE) );
 
         table.add(levelLable).expandX().padTop(10);

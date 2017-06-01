@@ -2,10 +2,13 @@ package Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
@@ -13,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -35,10 +39,19 @@ public class LoadingScreen implements Screen {
     private void queueAssets(){
         game.getAssetManager().load("GravityGuySprites.atlas", TextureAtlas.class);
         game.getAssetManager().load("GravityGuySprites.png", Texture.class);
+        game.getAssetManager().load("buttons.png", Texture.class);
+        game.getAssetManager().load("background.png", Texture.class);
+        game.getAssetManager().load("uiskin.atlas", TextureAtlas.class);
+       // game.getAssetManager().load("uiskin.png", Texture.class);
+        //game.getAssetManager().load("uiskin.json", Skin.class, new SkinLoader.SkinParameter("uiskin.atlas", ));
+        game.getAssetManager().setLoader(FreeTypeFontGenerator.class,
+                new FreeTypeFontGeneratorLoader(new InternalFileHandleResolver()));
+        game.getAssetManager().load("Prime Regular.otf", FreeTypeFontGenerator.class);
         game.getAssetManager().setLoader(TiledMap.class, new TmxMapLoader(
                 new InternalFileHandleResolver()));
         game.getAssetManager().load("map1.tmx", TiledMap.class);
         game.getAssetManager().load("map2.tmx", TiledMap.class);
+
     }
 
     @Override
@@ -70,15 +83,17 @@ public class LoadingScreen implements Screen {
 
     public void changeScreen(){
 
-        SequenceAction sequenceAction = new SequenceAction();
-        sequenceAction.addAction(Actions.fadeOut(2f));
-        sequenceAction.addAction(Actions.run(new Runnable() {
+        titleImg.addAction(Actions.sequence(Actions.delay(1.5f),
+                Actions.fadeOut(1.5f), Actions.alpha(0)));
+        loadingImg.addAction(Actions.sequence(Actions.delay(2.5f), Actions.fadeOut(1.5f),
+                Actions.delay(0.5f), Actions.run(new Runnable() {
             @Override
             public void run() {
-                game.setGameScreen();
+                game.initFonts();
+                game.initSkin();
+                game.setMenuScreen();
             }
-        }));
-        stage.addAction(sequenceAction);
+        })));
     }
 
     @Override
@@ -86,8 +101,7 @@ public class LoadingScreen implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(game.getAssetManager().update())
-            changeScreen();
+
 
         update(delta);
 
@@ -96,6 +110,9 @@ public class LoadingScreen implements Screen {
 
     public void update(float delta){
         stage.act(delta);
+
+        if(game.getAssetManager().update())
+            changeScreen();
     }
 
     @Override
