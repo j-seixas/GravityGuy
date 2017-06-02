@@ -27,6 +27,8 @@ public class GameController implements ContactListener {
     private ArrayList<BlockBody> blocks;
     private World world;
 
+    private boolean playerIsMoving;
+
     private static float LINEAR_SPEED = 1f;
     private static final float GRAVITY = -5;
 
@@ -45,6 +47,11 @@ public class GameController implements ContactListener {
         return gameController;
     }
 
+    public static GameController reset(){
+        gameController = new GameController();
+        return gameController;
+    }
+
     public void update(float delta) {
         world.step(1/60f, 6, 2);
 
@@ -58,6 +65,7 @@ public class GameController implements ContactListener {
         updatePlayer();
     }
 
+
     public void updatePlayer(){
         if(((PlayerModel) player.getUserData()).isGravity())
             player.getBody().setGravityScale(1);
@@ -67,12 +75,18 @@ public class GameController implements ContactListener {
 
         if(player.getBody().getLinearVelocity().y > 0){
             ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.FALLINGUP);
-        } else if(player.getBody().getLinearVelocity().y < 0)
+            playerIsMoving = true;
+        } else if(player.getBody().getLinearVelocity().y < 0) {
             ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.FALLINGDOWN);
-        else if(player.getBody().getLinearVelocity().y == 0 && player.getBody().getLinearVelocity().x != 0)
+            playerIsMoving = true;
+        }else if(player.getBody().getLinearVelocity().y == 0 && player.getBody().getLinearVelocity().x != 0) {
             ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.RUNNING);
-        else if(((PlayerModel) player.getUserData()).isFinishLine())
+            playerIsMoving = true;
+        }else if(((PlayerModel) player.getUserData()).isFinishLine()) {
             ((PlayerModel) player.getUserData()).setCurrPlayerAction(PlayerModel.PlayerAction.STOPPED);
+            playerIsMoving = false;
+        } else if(player.getBody().getLinearVelocity().y == 0 && player.getBody().getLinearVelocity().x == 0)
+            playerIsMoving = false;
 
         ((PlayerModel) player.getUserData()).setPosition(player.getBody().getPosition().x, player.getBody().getPosition().y);
     }
@@ -81,6 +95,9 @@ public class GameController implements ContactListener {
 
     public float getVelocity() {return LINEAR_SPEED;}
 
+    public boolean isPlayerIsMoving() {
+        return playerIsMoving;
+    }
 
     @Override
     public void beginContact(Contact contact) {

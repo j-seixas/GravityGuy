@@ -24,10 +24,10 @@ public class MenuView extends ScreenAdapter {
     private Stage stage;
 
     private Image background;
-    private TextureRegion btUpPlay, btUpSettings, btUpAchiev, btUpExit;
-    private TextureRegion btDownPlay, btDownSettings, btDownAchiev, btDownExit;
+    private TextureRegion btUpPlay, btUpSettings, btUpLeaderBoard, btUpAchiev, btUpExit;
+    private TextureRegion btDownPlay, btDownSettings, btDownLeaderBoard, btDownAchiev, btDownExit;
 
-    private ImageButton btPlay, btSettings, btAchiev, btExit;
+    private ImageButton btPlay, btSettings, btLeaderBoard, btAchiev, btExit;
 
     public MenuView() {
         super();
@@ -57,7 +57,6 @@ public class MenuView extends ScreenAdapter {
         background.setBounds(0,0,GravityGuy.WIDTH, GravityGuy.HEIGHT);
 
         initButtons();
-        game.getPlayServices().signIn();
         game.getCamera().position.x = stage.getWidth() / 2;
         game.getCamera().position.y = stage.getHeight() / 2;
     }
@@ -67,7 +66,7 @@ public class MenuView extends ScreenAdapter {
 
         btPlay = new ImageButton(new TextureRegionDrawable(btUpPlay), new TextureRegionDrawable(btDownPlay));
         btPlay.setSize(40, 40);
-        btPlay.setPosition(55, 40);
+        btPlay.setPosition(30, 40);
         btPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -76,16 +75,25 @@ public class MenuView extends ScreenAdapter {
         });
         btSettings = new ImageButton(new TextureRegionDrawable(btUpSettings), new TextureRegionDrawable(btDownSettings));
         btSettings.setSize(40, 40);
-        btSettings.setPosition(105, 40);
+        btSettings.setPosition(80, 40);
         btSettings.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setSettingsScreen();
             }
         });
+        btLeaderBoard = new ImageButton(new TextureRegionDrawable(btUpLeaderBoard), new TextureRegionDrawable(btDownLeaderBoard));
+        btLeaderBoard.setSize(40, 40);
+        btLeaderBoard.setPosition(130, 40);
+        btLeaderBoard.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                game.getPlayServices().showScore();
+            }
+        });
         btAchiev = new ImageButton(new TextureRegionDrawable(btUpAchiev), new TextureRegionDrawable(btDownAchiev));
         btAchiev.setSize(40, 40);
-        btAchiev.setPosition(155, 40);
+        btAchiev.setPosition(180, 40);
         btAchiev.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -94,7 +102,7 @@ public class MenuView extends ScreenAdapter {
         });
         btExit = new ImageButton(new TextureRegionDrawable(btUpExit), new TextureRegionDrawable(btDownExit));
         btExit.setSize(40,40);
-        btExit.setPosition(205, 40);
+        btExit.setPosition(230, 40);
         btExit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -105,6 +113,7 @@ public class MenuView extends ScreenAdapter {
 
         stage.addActor(btPlay);
         stage.addActor(btSettings);
+        stage.addActor(btLeaderBoard);
         stage.addActor(btAchiev);
         stage.addActor(btExit);
     }
@@ -115,6 +124,8 @@ public class MenuView extends ScreenAdapter {
         btDownPlay = new TextureRegion(buttons, 0, 400, 400, 400);
         btUpSettings = new TextureRegion(buttons, 400, 0, 400, 400);
         btDownSettings = new TextureRegion(buttons, 400, 400, 400, 400);
+        btUpLeaderBoard = new TextureRegion(buttons, 2090, 0, 400, 400);
+        btDownLeaderBoard = new TextureRegion(buttons, 2090, 400, 400, 400);
         btUpAchiev = new TextureRegion(buttons, 800, 0, 400, 400);
         btDownAchiev = new TextureRegion(buttons, 800, 400, 400, 400);
         btUpExit = new TextureRegion(buttons, 1200, 0, 400, 400);

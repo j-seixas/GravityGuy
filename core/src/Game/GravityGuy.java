@@ -16,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import Tools.PlayServices;
+import Views.GameOverScreen;
 import Views.GameView;
 import Views.LoadingScreen;
 import Views.MenuView;
@@ -92,12 +93,16 @@ public class GravityGuy extends Game {
         setScreen(menuView);
     }
 
+    public void restartGameScreen(){gameView = new GameView();}
+
     public void setGameScreen() {
-       // gameView = new GameView();
+        restartGameScreen();
         setScreen(gameView);
     }
 
     public void setSettingsScreen() {setScreen(settingsScreen);}
+
+    public void setGameOverScreen(int score, int gravityChanges) { setScreen(new GameOverScreen(score, gravityChanges));}
 
     public SpriteBatch getSpriteBatch(){
         return spriteBatch;
@@ -154,7 +159,7 @@ public class GravityGuy extends Game {
     public void dispose() {
         font.dispose();
         menuView.dispose();
-        gameView.dispose();
+        if(gameView != null) gameView.dispose();
         loadingScreen.dispose();
         assetManager.dispose();
         spriteBatch.dispose();

@@ -24,6 +24,11 @@ public class GameModel {
         return gameModel;
     }
 
+    public static GameModel reset(){
+        gameModel = new GameModel();
+        return gameModel;
+    }
+
 
     public PlayerModel getPlayer() {
         return player;

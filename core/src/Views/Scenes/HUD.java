@@ -21,7 +21,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import Controller.GameController;
 import Game.GravityGuy;
+import Models.Entities.PlayerModel;
+import Models.GameModel;
 
 public class HUD implements Disposable{
     private GravityGuy game;
@@ -36,11 +39,14 @@ public class HUD implements Disposable{
     private TextureRegion returnBtUp, returnBtDown;
     private ImageButton returnBt;
 
+    private boolean lost;
+
     public HUD(){
         Gdx.input.setInputProcessor(stage);
         game = GravityGuy.instance();
         worldTimer = 0;
         timeCount = 0;
+        lost = false;
         viewport = new StretchViewport(GravityGuy.WIDTH, GravityGuy.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, GravityGuy.instance().getSpriteBatch());
 
@@ -59,6 +65,7 @@ public class HUD implements Disposable{
         returnBt.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.restartGameScreen();
                 game.setMenuScreen();
             }
         });
@@ -82,19 +89,27 @@ public class HUD implements Disposable{
 
     public void update(float delta){
         Gdx.input.setInputProcessor(stage);
-        timeCount += delta;
-        if(timeCount >= 1){
-            worldTimer += 1;
-            timeLable.setText(String.format("%04d", worldTimer));
-            timeCount = 0;
+        if(GameController.instance().isPlayerIsMoving()) {
+            timeCount += delta;
+            if (timeCount >= 1 && !lost) {
+                worldTimer += 1;
+                timeLable.setText(String.format("%04d", worldTimer));
+                timeCount = 0;
+            }
         }
         stage.act(delta);
     }
 
     public float getTime(){ return worldTimer + timeCount;}
 
+    public int getIntTime() { return worldTimer;}
+
     public Camera getCamera(){
         return stage.getCamera();
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
     }
 
     @Override

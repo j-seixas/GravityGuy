@@ -105,26 +105,37 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
 	}
 
-	public String getAchiev(int i){
-		switch (i){
+	public String getAchiev(int achiev){
+		switch (achiev){
 			case 0: return getString(R.string.achievement_silent_gamer);
-			case 1: return getString(R.string.achievement_rookie); //
-			case 2: return getString(R.string.achievement_expert); //
-			case 3: return getString(R.string.achievement_gravity_master);
-			case 4: return getString(R.string.achievement_gravity_sensei); //
-			case 5: return getString(R.string.achievement_devil_player);
-			case 6: return getString(R.string.achievement_oww);
+			case 1: return getString(R.string.achievement_gravity_master);
+			case 2: return getString(R.string.achievement_devil_player);
+			case 3: return getString(R.string.achievement_oww);
+			default: return null;
+		}
+	}
+
+	public String getIncAchiev(int achiev){
+		switch (achiev){
+			case 0: return getString(R.string.achievement_rookie);
+			case 1: return getString(R.string.achievement_expert);
+			case 2: return getString(R.string.achievement_gravity_sensei);
 			default: return null;
 		}
 	}
 
 	@Override
-	public void unlockAchievement(int i)
-	{
-		String str = getAchiev(i);
+	public void unlockAchievement(int achiev) {
+		String str = getAchiev(achiev);
 		if(str != null)
 			Games.Achievements.unlock(gameHelper.getApiClient(), str);
-				//getString(R.string.achievement_dum_dum));
+	}
+
+	@Override
+	public void incrementAchievement(int achiev, int i) {
+		String str = getIncAchiev(achiev);
+		if(str != null)
+			Games.Achievements.increment(gameHelper.getApiClient(), str, i);
 	}
 
 	@Override

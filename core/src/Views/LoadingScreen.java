@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -42,6 +43,7 @@ public class LoadingScreen implements Screen {
         game.getAssetManager().load("buttons.png", Texture.class);
         game.getAssetManager().load("background.png", Texture.class);
         game.getAssetManager().load("uiskin.atlas", TextureAtlas.class);
+        game.getAssetManager().load("music.wav", Music.class);
        // game.getAssetManager().load("uiskin.png", Texture.class);
         //game.getAssetManager().load("uiskin.json", Skin.class, new SkinLoader.SkinParameter("uiskin.atlas", ));
         game.getAssetManager().setLoader(FreeTypeFontGenerator.class,

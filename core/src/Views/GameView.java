@@ -2,8 +2,8 @@ package Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -24,7 +24,7 @@ import Views.Scenes.HUD;
 
 
 public class GameView extends ScreenAdapter {
-    public enum GameState {PLAYING, WON, LOST}
+    public enum GameState {PLAYING, LOST}
 
     private GameState state;
     private GravityGuy game;
@@ -42,9 +42,10 @@ public class GameView extends ScreenAdapter {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
+    private Music music;
     //Box2d
     //private Box2DDebugRenderer b2dr;
-
+    private int numberGravityChanges = 0;
 
     public GameView() {
         super();
@@ -52,10 +53,10 @@ public class GameView extends ScreenAdapter {
 
         camera = game.getCamera();
 
-        state = GameState.PLAYING;
 
-        gameController = GameController.instance();
-        gameModel = GameModel.instance();
+        gameModel = GameModel.reset();
+        gameController = GameController.reset();
+
 
 
         viewport = new StretchViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
@@ -94,13 +95,16 @@ public class GameView extends ScreenAdapter {
     }
 
     public void handleInput(float delta){
-        if((Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-                && gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.RUNNING){
+        if(Gdx.input.justTouched()
+                && (gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.RUNNING) ||
+                (gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.STOPPED)){
 
             if(gameModel.getPlayer().isGravity())
                 gameModel.getPlayer().setGravity(false);
             else
                 gameModel.getPlayer().setGravity(true);
+            game.getPlayServices().incrementAchievement(2,1);
+            numberGravityChanges++;
         }
 
     }
@@ -113,13 +117,13 @@ public class GameView extends ScreenAdapter {
         playerView.update(delta);
 
 
-        if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0)
+        if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0) {
             state = GameState.LOST;
-
+            HUD.setLost(true);
+            game.setGameOverScreen(HUD.getIntTime(), numberGravityChanges);
+        }
         if(gameModel.getPlayer().getCurrPlayerAction() != PlayerModel.PlayerAction.STOPPED
                 && state == GameState.PLAYING)
-            //camera.position.x = gameController.getVelocity() * HUD.getTime() ;
-           // camera.position.x += 1.5 / GravityGuy.PPM;
             camera.position.x = gameModel.getPlayer().getX();
         camera.update();
         HUD.update(delta);
@@ -139,10 +143,14 @@ public class GameView extends ScreenAdapter {
         HUD = new HUD();
 
         map = game.getAssetManager().get("map2.tmx");
-
+        state = GameState.PLAYING;
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
         new PhysicsWorld(gameController.getWorld(), map);
+
+        music = game.getAssetManager().get("music.wav");
+        music.setLooping(true);
+        music.play();
         //super.show();
 
     }
@@ -150,16 +158,19 @@ public class GameView extends ScreenAdapter {
     @Override
     public void hide() {
         super.hide();
+        music.stop();
     }
 
     @Override
     public void pause() {
         super.pause();
+        music.pause();
     }
 
     @Override
     public void resume() {
         super.resume();
+        music.play();
     }
 
     @Override
@@ -168,5 +179,8 @@ public class GameView extends ScreenAdapter {
         if(renderer != null) renderer.dispose();
         //b2dr.dispose();
         if(HUD != null) HUD.dispose();
+        if(atlas != null) atlas.dispose();
+        if(music != null) music.dispose();
+
     }
 }
