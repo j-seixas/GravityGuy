@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import Tools.PlayServices;
 import Views.GameView;
 import Views.LoadingScreen;
 import Views.MenuView;
@@ -28,6 +29,8 @@ public class GravityGuy extends Game {
 
 
     private int number_players = 1;
+
+    private static PlayServices playServices;
     private AssetManager assetManager;
     private GameView gameView;
     private MenuView menuView;
@@ -41,9 +44,16 @@ public class GravityGuy extends Game {
     private BitmapFont font;
     private Skin skin;
 
+    public GravityGuy(PlayServices playServices)
+    {
+        this.playServices = playServices;
+        game = this;
+    }
+
+
     public static GravityGuy instance() {
-        if (game == null)
-            game = new GravityGuy();
+        //if (game != null)
+           // game = new GravityGuy();
         return game;
     }
 
@@ -137,6 +147,8 @@ public class GravityGuy extends Game {
     public Skin getSkin() {
         return skin;
     }
+
+    public PlayServices getPlayServices(){return playServices;}
 
     @Override
     public void dispose() {

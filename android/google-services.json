@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "963125036352",
+    "project_id": "gravityguy-73224483"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963125036352:android:660d0e98178c05e2",
+        "android_client_info": {
+          "package_name": "com.lpoo.gravityguy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963125036352-9jf002gqlhjht2mg10dof2vd3194phd6.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "963125036352-0bha0emrjiuu3qp2tbegsn9a96l3q50a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lpoo.gravityguy",
+            "certificate_hash": "8e9c6b2952ade6eb2004b50c3537196f11846fb4"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlHyMDAae1D6ge4JwIqD30IQl2U7QT3Sw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

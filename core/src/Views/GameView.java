@@ -2,6 +2,7 @@ package Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,7 +43,7 @@ public class GameView extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
 
     //Box2d
-    private Box2DDebugRenderer b2dr;
+    //private Box2DDebugRenderer b2dr;
 
 
     public GameView() {
@@ -51,10 +52,7 @@ public class GameView extends ScreenAdapter {
 
         camera = game.getCamera();
 
-
         state = GameState.PLAYING;
-
-
 
         gameController = GameController.instance();
         gameModel = GameModel.instance();
@@ -63,12 +61,7 @@ public class GameView extends ScreenAdapter {
         viewport = new StretchViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
 
 
-
-
-
-
-
-        b2dr = new Box2DDebugRenderer();
+        //b2dr = new Box2DDebugRenderer();
 
 
     }
@@ -109,6 +102,7 @@ public class GameView extends ScreenAdapter {
             else
                 gameModel.getPlayer().setGravity(true);
         }
+
     }
 
     public void update(float delta){
@@ -145,10 +139,12 @@ public class GameView extends ScreenAdapter {
         HUD = new HUD();
 
         map = game.getAssetManager().get("map2.tmx");
+
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
         new PhysicsWorld(gameController.getWorld(), map);
         //super.show();
+
     }
 
     @Override
@@ -168,9 +164,9 @@ public class GameView extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        b2dr.dispose();
-        HUD.dispose();
+        if(map != null) map.dispose();
+        if(renderer != null) renderer.dispose();
+        //b2dr.dispose();
+        if(HUD != null) HUD.dispose();
     }
 }

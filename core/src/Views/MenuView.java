@@ -57,7 +57,9 @@ public class MenuView extends ScreenAdapter {
         background.setBounds(0,0,GravityGuy.WIDTH, GravityGuy.HEIGHT);
 
         initButtons();
-
+        game.getPlayServices().signIn();
+        game.getCamera().position.x = stage.getWidth() / 2;
+        game.getCamera().position.y = stage.getHeight() / 2;
     }
 
     private void initButtons(){
@@ -87,7 +89,7 @@ public class MenuView extends ScreenAdapter {
         btAchiev.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.setGameScreen();
+                game.getPlayServices().showAchievement();
             }
         });
         btExit = new ImageButton(new TextureRegionDrawable(btUpExit), new TextureRegionDrawable(btDownExit));
@@ -96,6 +98,7 @@ public class MenuView extends ScreenAdapter {
         btExit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.getPlayServices().signOut();
                 Gdx.app.exit();
             }
         });

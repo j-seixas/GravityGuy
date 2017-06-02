@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--
+    Google Play game services IDs.
+    Save this file as res/values/games-ids.xml in your project.
+    -->
+<resources>
+<string name="app_id">963125036352</string>
+<string name="package_name">com.lpoo.gravityguy</string>
+<string name="achievement_silent_gamer">CgkIwIrn9YMcEAIQAQ</string>
+<string name="achievement_rookie">CgkIwIrn9YMcEAIQAg</string>
+<string name="achievement_expert">CgkIwIrn9YMcEAIQAw</string>
+<string name="achievement_gravity_master">CgkIwIrn9YMcEAIQBA</string>
+<string name="achievement_gravity_sensei">CgkIwIrn9YMcEAIQBQ</string>
+<string name="achievement_devil_player">CgkIwIrn9YMcEAIQBg</string>
+<string name="achievement_oww">CgkIwIrn9YMcEAIQBw</string>
+<string name="leaderboard_time_highscore">CgkIwIrn9YMcEAIQCA</string>
+</resources>

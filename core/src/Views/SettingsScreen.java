@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Game.GravityGuy;
 
+
 public class SettingsScreen implements Screen {
 
     private GravityGuy game;
@@ -49,7 +50,7 @@ public class SettingsScreen implements Screen {
                 new CheckBox.CheckBoxStyle(new TextureRegionDrawable(checkBoxOff),
                         new TextureRegionDrawable(checkBoxOn), game.getFont(), Color.WHITE));
         soundCheck.setBounds(20, 50, 20, 20);
-
+        soundCheck.setChecked(true);
 
         soundLabel = new Label("Music", new Label.LabelStyle(game.getFont(), Color.WHITE));
         soundLabel.setFontScale(1f);
@@ -74,6 +75,8 @@ public class SettingsScreen implements Screen {
     }
 
     void update(float delta){
+        if(!soundCheck.isChecked())
+            game.getPlayServices().unlockAchievement(0);
         stage.act(delta);
     }
 
