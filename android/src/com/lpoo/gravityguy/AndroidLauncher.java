@@ -126,55 +126,48 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 
 	@Override
 	public void unlockAchievement(int achiev) {
-		String str = getAchiev(achiev);
-		if(str != null)
-			Games.Achievements.unlock(gameHelper.getApiClient(), str);
+		if(isSignedIn()) {
+            String str = getAchiev(achiev);
+            if (str != null)
+                Games.Achievements.unlock(gameHelper.getApiClient(), str);
+        }
 	}
 
 	@Override
 	public void incrementAchievement(int achiev, int i) {
-		String str = getIncAchiev(achiev);
-		if(str != null)
-			Games.Achievements.increment(gameHelper.getApiClient(), str, i);
+        if(isSignedIn()) {
+            String str = getIncAchiev(achiev);
+            if (str != null)
+                Games.Achievements.increment(gameHelper.getApiClient(), str, i);
+        }
 	}
 
 	@Override
-	public void submitScore(int highScore)
-	{
-		if (isSignedIn() == true)
-		{
+	public void submitScore(int highScore) {
+		if (isSignedIn()) {
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(),
 					getString(R.string.leaderboard_time_highscore), highScore);
 		}
 	}
 
 	@Override
-	public void showAchievement()
-	{
-		if (isSignedIn() == true)
-		{
+	public void showAchievement() {
+		if (isSignedIn())
 			startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), requestCode);
-			/*startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient(),
-					getString(R.string.achievement_devil_player)), requestCode);*/
-		}
+
 		else
-		{
 			signIn();
-		}
+
 	}
 
 	@Override
-	public void showScore()
-	{
-		if (isSignedIn() == true)
-		{
+	public void showScore() {
+		if (isSignedIn()) {
 			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
 					getString(R.string.leaderboard_time_highscore)), requestCode);
-		}
-		else
-		{
+		} else
 			signIn();
-		}
+
 	}
 
 	@Override

@@ -24,7 +24,6 @@ public class GameController implements ContactListener {
     private static GameController gameController = null;
 
     private PlayerBody player;
-    private ArrayList<BlockBody> blocks;
     private World world;
 
     private boolean playerIsMoving;
@@ -35,10 +34,9 @@ public class GameController implements ContactListener {
     private GameController(){
         world = new World(new Vector2(0, GRAVITY), true);
         world.setContactListener(this);
-        blocks = new ArrayList<BlockBody>();
         player = new PlayerBody(world, GameModel.instance().getPlayer());
         player.setLinearVelocity(new Vector2(LINEAR_SPEED, 0));
-
+        playerIsMoving = true;
     }
 
     public static GameController instance(){
@@ -92,6 +90,12 @@ public class GameController implements ContactListener {
     }
 
     public World getWorld(){ return world; }
+
+
+    public PlayerBody getPlayer() {
+        return player;
+    }
+
 
     public float getVelocity() {return LINEAR_SPEED;}
 
