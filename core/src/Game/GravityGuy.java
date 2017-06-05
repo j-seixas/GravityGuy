@@ -19,6 +19,11 @@ import Views.LoadingScreen;
 import Views.MenuView;
 import Views.SettingsScreen;
 
+/**
+ * The game class
+ * Initializes the necessary resources
+ * and needed objects
+ */
 public class GravityGuy extends Game {
     public static final int WIDTH = 300;
     public static final int HEIGHT = 208;
@@ -40,18 +45,30 @@ public class GravityGuy extends Game {
 
     private boolean music;
 
+
+    /**
+     * GravityGuy constructor
+     *
+     * @param playServices Google Play services
+     */
     public GravityGuy(PlayServices playServices)
     {
         this.playServices = playServices;
         game = this;
     }
 
-
+    /**
+     * Gets the game instance
+     * @return Returns the game instance
+     */
     public static GravityGuy instance() {
         return game;
     }
 
 
+    /**
+     * Initializes the game
+     */
     @Override
     public void create() {
         assetManager = new AssetManager();
@@ -69,32 +86,61 @@ public class GravityGuy extends Game {
 
     }
 
-
+    /**
+     * Gets the asset manager of the game
+     * @return Returns the asset manager of the game
+     */
     public AssetManager getAssetManager() {
         return assetManager;
     }
 
+    /**
+     * Sets the menu screen as the displayed screen
+     */
     public void setMenuScreen() {
         setScreen(menuView);
     }
 
+    /**
+     * Restarts the game screen
+     */
     public void restartGameScreen(){gameView = new GameView();}
 
+    /**
+     * Sets the game screen as the displayed screen
+     */
     public void setGameScreen() {
         restartGameScreen();
         setScreen(gameView);
     }
 
+    /**
+     * Sets the settings screen as the displayed screen
+     */
     public void setSettingsScreen() {setScreen(settingsScreen);}
 
+    /**
+     * Sets the game over screen as the displayed screen
+     */
     public void setGameOverScreen(int score, int gravityChanges) { setScreen(new GameOverScreen(score, gravityChanges));}
 
+    /**
+     * Gets the game' sprite batch
+     * @return Returns the game' sprite batch
+     */
     public SpriteBatch getSpriteBatch(){
         return spriteBatch;
     }
 
+    /**
+     * Gets the game's camera
+     * @return Returns the game's camera
+     */
     public OrthographicCamera getCamera() {return camera; }
 
+    /**
+     * Initializes the used fonts
+     */
     public void initFonts(){
         FreeTypeFontGenerator generator = assetManager.get("fontskins/Prime Regular.otf");
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -113,10 +159,17 @@ public class GravityGuy extends Game {
 
     }
 
+    /**
+     * Gets the game's font
+     * @return Return the game's font
+     */
     public BitmapFont getFont() {
         return font;
     }
 
+    /**
+     * Initializes the skins
+     */
     public void initSkin(){
         skin = new Skin();
         skin.addRegions(assetManager.get("fontskins/uiskin.atlas", TextureAtlas.class));
@@ -126,18 +179,38 @@ public class GravityGuy extends Game {
 
     }
 
+    /**
+     * Gets the game' skins
+     *
+     * @return Returns the game' skins
+     */
     public Skin getSkin() {
         return skin;
     }
 
+    /**
+     * Gets Google Play's services
+     * @return Returns Google Play's services
+     */
     public PlayServices getPlayServices(){return playServices;}
 
+    /**
+     * Checks if the music is enabled
+     * @return Returns whether or not the music is enabled
+     */
     public boolean getMusic(){return music;}
 
+    /**
+     * Enables or disables the music
+     * @param music The boolean that determines if the music will be enabled/disabled
+     */
     public void setMusic(boolean music){
         this.music = music;
     }
 
+    /**
+     * Disposes the game and its resources
+     */
     @Override
     public void dispose() {
         font.dispose();
