@@ -1,24 +1,20 @@
 package Views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Controller.GameController;
 import Game.GravityGuy;
 import Models.Entities.PlayerModel;
 import Models.GameModel;
-import Tools.PhysicsWorld;
+import Controller.PhysicsWorld;
 import Views.Entities.PlayerView;
 import Views.Scenes.HUD;
 
@@ -43,8 +39,7 @@ public class GameView extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
 
     private Music music;
-    //Box2d
-    //private Box2DDebugRenderer b2dr;
+
     private int numberGravityChanges = 0;
 
     public GameView() {
@@ -53,17 +48,10 @@ public class GameView extends ScreenAdapter {
 
         camera = game.getCamera();
 
-
         gameModel = GameModel.reset();
         gameController = GameController.reset();
 
-
-
         viewport = new StretchViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
-
-
-        //b2dr = new Box2DDebugRenderer();
-
 
     }
 
@@ -81,8 +69,6 @@ public class GameView extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-
-        //b2dr.render(gameController.getWorld(), camera.combined);
 
         game.getSpriteBatch().setProjectionMatrix(camera.combined);
 
@@ -137,21 +123,22 @@ public class GameView extends ScreenAdapter {
 
     @Override
     public void show() {
-        atlas = game.getAssetManager().get("GravityGuySprites.atlas");
+        atlas = game.getAssetManager().get("images/GravityGuySprites.atlas");
         playerView = new PlayerView(gameModel.getPlayer(), this);
 
         HUD = new HUD();
 
-        map = game.getAssetManager().get("map2.tmx");
+        map = game.getAssetManager().get("maps/map2.tmx");
         state = GameState.PLAYING;
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
         new PhysicsWorld(gameController.getWorld(), map);
 
-        music = game.getAssetManager().get("music.wav");
+        music = game.getAssetManager().get("sounds/music.wav");
         music.setLooping(true);
-        music.play();
-        //super.show();
+        if(game.getMusic())
+            music.play();
+
 
     }
 
@@ -170,14 +157,14 @@ public class GameView extends ScreenAdapter {
     @Override
     public void resume() {
         super.resume();
-        music.play();
+        if(game.getMusic())
+            music.play();
     }
 
     @Override
     public void dispose() {
         if(map != null) map.dispose();
         if(renderer != null) renderer.dispose();
-        //b2dr.dispose();
         if(HUD != null) HUD.dispose();
         if(atlas != null) atlas.dispose();
         if(music != null) music.dispose();

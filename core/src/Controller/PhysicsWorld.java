@@ -1,4 +1,4 @@
-package Tools;
+package Controller;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;

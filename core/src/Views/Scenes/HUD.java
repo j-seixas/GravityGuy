@@ -3,11 +3,8 @@ package Views.Scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,14 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import Controller.GameController;
 import Game.GravityGuy;
-import Models.Entities.PlayerModel;
-import Models.GameModel;
+
 
 public class HUD implements Disposable{
     private GravityGuy game;
@@ -35,7 +30,7 @@ public class HUD implements Disposable{
     private float timeCount;
 
     Table table;
-    Label timeLable, levelLable, testLable;
+    Label timeLable, levelLable;
     private TextureRegion returnBtUp, returnBtDown;
     private ImageButton returnBt;
 
@@ -55,7 +50,7 @@ public class HUD implements Disposable{
         table.setFillParent(true);
 
 
-        Texture buttons = game.getAssetManager().get("buttons.png");
+        Texture buttons = game.getAssetManager().get("images/buttons.png");
 
         returnBtDown = new TextureRegion(buttons, 1600, 0, 400, 400);
         returnBtUp = new TextureRegion(buttons, 1600, 400, 400, 400);
@@ -76,9 +71,8 @@ public class HUD implements Disposable{
         timeLable.setFontScale(0.7f);
         levelLable.setFontScale(0.7f);
         table.add(levelLable).width(100).padTop(2).padLeft(100);
-        //table.add(testLable).expandX().padTop(10);
         table.add(timeLable).width(100).padTop(2);
-        //table.row();
+
         stage.addActor(returnBt);
         stage.addActor(table);
     }

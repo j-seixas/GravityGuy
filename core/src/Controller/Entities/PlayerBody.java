@@ -1,8 +1,6 @@
 package Controller.Entities;
 
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -40,13 +38,4 @@ public class PlayerBody extends EntityBody {
         body.createFixture(fixtureDef);
     }
 
-    public void updatePlayerAction(){
-
-    }
-
-    public void update(){
-
-
-
-    }
 }

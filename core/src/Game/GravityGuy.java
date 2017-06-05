@@ -3,16 +3,13 @@ package Game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import Tools.PlayServices;
@@ -26,10 +23,6 @@ public class GravityGuy extends Game {
     public static final int WIDTH = 300;
     public static final int HEIGHT = 208;
     public static final float PPM = 100;
-    public static final int MAX_PLAYERS = 4;
-
-
-    private int number_players = 1;
 
     private static PlayServices playServices;
     private AssetManager assetManager;
@@ -45,6 +38,8 @@ public class GravityGuy extends Game {
     private BitmapFont font;
     private Skin skin;
 
+    private boolean music;
+
     public GravityGuy(PlayServices playServices)
     {
         this.playServices = playServices;
@@ -53,8 +48,6 @@ public class GravityGuy extends Game {
 
 
     public static GravityGuy instance() {
-        //if (game != null)
-           // game = new GravityGuy();
         return game;
     }
 
@@ -65,28 +58,20 @@ public class GravityGuy extends Game {
         camera = new OrthographicCamera();
 
         spriteBatch = new SpriteBatch();
-       // instance().loadAssets();
+
+        music = true;
+
         menuView = new MenuView();
         gameView = new GameView();
         settingsScreen = new SettingsScreen();
-        //instance().setGameScreen();
         loadingScreen = new LoadingScreen();
         instance().setScreen(loadingScreen);
 
     }
 
-    //private void loadAssets() { assetManager.finishLoading(); }
 
     public AssetManager getAssetManager() {
         return assetManager;
-    }
-
-    public int getNumberPlayers() {
-        return number_players;
-    }
-
-    public void setNumberPlayers(int number_players) {
-        this.number_players = number_players;
     }
 
     public void setMenuScreen() {
@@ -111,10 +96,9 @@ public class GravityGuy extends Game {
     public OrthographicCamera getCamera() {return camera; }
 
     public void initFonts(){
-        FreeTypeFontGenerator generator = assetManager.get("Prime Regular.otf");
+        FreeTypeFontGenerator generator = assetManager.get("fontskins/Prime Regular.otf");
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-       // params.borderStraight = true;
         params.genMipMaps = true;
         params.minFilter = Texture.TextureFilter.MipMapLinearLinear;
         params.magFilter = Texture.TextureFilter.Linear;
@@ -123,17 +107,10 @@ public class GravityGuy extends Game {
         params.color = Color.WHITE;
         params.borderWidth = 1;
         params.borderColor = Color.BLACK;
-        //params.shadowOffsetX = 1;
-        //params.renderCount = 500;
-        font = generator.generateFont(params);
 
-        //font = new BitmapFont(Gdx.files.internal("consolas.fnt"), Gdx.files.internal("consolas.png"), false);
-        //font.setColor(Color.WHITE);
+        font = generator.generateFont(params);
         font.setUseIntegerPositions(false);
 
-        /*Texture texture = new Texture(Gdx.files.internal("font.png"), true); // true enables mipmaps
-        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
-        font = new BitmapFont(Gdx.files.internal("font.fnt"), new TextureRegion(texture), false);*/
     }
 
     public BitmapFont getFont() {
@@ -142,9 +119,9 @@ public class GravityGuy extends Game {
 
     public void initSkin(){
         skin = new Skin();
-        skin.addRegions(assetManager.get("uiskin.atlas", TextureAtlas.class));
+        skin.addRegions(assetManager.get("fontskins/uiskin.atlas", TextureAtlas.class));
         skin.add("default-font", font);
-        skin.load(Gdx.files.internal("uiskin.json"));
+        skin.load(Gdx.files.internal("fontskins/uiskin.json"));
         skin.getFont("default-font").getData().setScale(0.33f);
 
     }
@@ -154,6 +131,12 @@ public class GravityGuy extends Game {
     }
 
     public PlayServices getPlayServices(){return playServices;}
+
+    public boolean getMusic(){return music;}
+
+    public void setMusic(boolean music){
+        this.music = music;
+    }
 
     @Override
     public void dispose() {

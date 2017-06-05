@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Game.GravityGuy;
@@ -30,6 +29,7 @@ public class SettingsScreen implements Screen {
     private CheckBox soundCheck;
     private ImageButton returnBt;
     private Label soundLabel;
+    private Image background;
 
     public SettingsScreen(){
         game = GravityGuy.instance();
@@ -40,24 +40,39 @@ public class SettingsScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
-        Texture buttons = game.getAssetManager().get("buttons.png");
+        initTextures();
+        initButtonsCheckBox();
+        initLabels();
+
+
+        background.setBounds(0,0,GravityGuy.WIDTH, GravityGuy.HEIGHT);
+
+        stage.addActor(background);
+        stage.addActor(soundCheck);
+        stage.addActor(returnBt);
+        stage.addActor(soundLabel);
+
+    }
+
+    void initTextures(){
+        Texture backTex = game.getAssetManager().get("images/settings.png");
+        background = new Image(backTex);
+        Texture buttons = game.getAssetManager().get("images/buttons.png");
 
         checkBoxOff = new TextureRegion(buttons, 2070, 0, 20, 20);
         checkBoxOn = new TextureRegion(buttons, 2070, 20, 20, 20);
+        returnBtUp = new TextureRegion(buttons, 1600, 0, 400, 400);
+        returnBtDown = new TextureRegion(buttons, 1600, 400, 400, 400);
+    }
 
-
+    void initButtonsCheckBox(){
         soundCheck = new CheckBox("",
                 new CheckBox.CheckBoxStyle(new TextureRegionDrawable(checkBoxOff),
                         new TextureRegionDrawable(checkBoxOn), game.getFont(), Color.WHITE));
         soundCheck.setBounds(20, 50, 20, 20);
-        soundCheck.setChecked(true);
+        if(game.getMusic())
+            soundCheck.setChecked(true);
 
-        soundLabel = new Label("Music", new Label.LabelStyle(game.getFont(), Color.WHITE));
-        soundLabel.setFontScale(1f);
-        soundLabel.setPosition(60, 55);
-
-        returnBtUp = new TextureRegion(buttons, 1600, 0, 400, 400);
-        returnBtDown = new TextureRegion(buttons, 1600, 400, 400, 400);
         returnBt = new ImageButton(new TextureRegionDrawable(returnBtUp), new TextureRegionDrawable(returnBtDown));
         returnBt.setSize(20, 20);
         returnBt.setPosition(280, 188);
@@ -67,16 +82,20 @@ public class SettingsScreen implements Screen {
                 game.setMenuScreen();
             }
         });
+    }
 
-        stage.addActor(soundCheck);
-        stage.addActor(returnBt);
-        stage.addActor(soundLabel);
-
+    void initLabels(){
+        soundLabel = new Label("Music", new Label.LabelStyle(game.getFont(), Color.WHITE));
+        soundLabel.setFontScale(1f);
+        soundLabel.setPosition(60, 55);
     }
 
     void update(float delta){
-        if(!soundCheck.isChecked())
+        if(!soundCheck.isChecked()) {
+            game.setMusic(false);
             game.getPlayServices().unlockAchievement(0);
+        }else
+            game.setMusic(true);
         stage.act(delta);
     }
 

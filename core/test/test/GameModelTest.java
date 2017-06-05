@@ -5,7 +5,6 @@ import org.junit.Test;
 import Models.Entities.PlayerModel;
 import Models.GameModel;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;

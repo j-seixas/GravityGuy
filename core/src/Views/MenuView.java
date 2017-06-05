@@ -5,14 +5,12 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Game.GravityGuy;
@@ -38,18 +36,16 @@ public class MenuView extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
-        //super.resize(width, height);
         stage.getViewport().update(width, height, false);
     }
 
     @Override
     public void show() {
-        //super.show();
 
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
-        Texture backTex = game.getAssetManager().get("background.png");
+        Texture backTex = game.getAssetManager().get("images/background.png");
         background = new Image(backTex);
 
         stage.addActor(background);
@@ -119,7 +115,7 @@ public class MenuView extends ScreenAdapter {
     }
 
     private void initTexButtons(){
-        Texture buttons = game.getAssetManager().get("buttons.png");
+        Texture buttons = game.getAssetManager().get("images/buttons.png");
         btUpPlay = new TextureRegion(buttons, 0, 0, 400, 400);
         btDownPlay = new TextureRegion(buttons, 0, 400, 400, 400);
         btUpSettings = new TextureRegion(buttons, 400, 0, 400, 400);

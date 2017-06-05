@@ -13,7 +13,7 @@ import Models.GameModel;
 import static org.junit.Assert.*;
 
 
-public class GameControllerTest extends GameTest{
+public class GameControllerTest extends GameTest {
 
     @Test
     public void testGetsSets(){

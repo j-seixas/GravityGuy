@@ -1,21 +1,14 @@
 package Controller.Entities;
 
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import Game.GravityGuy;
 import Models.Entities.EntityModel;
 
 public abstract class EntityBody {
-    //protected World world;
 
     protected Body body;
 
@@ -38,10 +31,6 @@ public abstract class EntityBody {
 
     public float getY() {
         return body.getPosition().y;
-    }
-
-    public void setTransform(float x, float y, float angle) {
-        body.setTransform(x, y, angle);
     }
 
     public void setLinearVelocity(Vector2 velocity) {
