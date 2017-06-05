@@ -10,14 +10,24 @@ import com.badlogic.gdx.physics.box2d.World;
 import Game.GravityGuy;
 import Models.Entities.BlockModel;
 
-
+/**
+ * This class implements the necessary
+ * methods to define the physical body
+ * of a block.
+ */
 public class BlockBody extends EntityBody{
 
 
     private Rectangle rect;
     private BlockModel model;
 
-
+    /**
+     * BlockBody constructor
+     *
+     * @param world The physics world
+     * @param rect  The rectangle received from the map loader
+     * @param model The model to which it's linked
+     */
     public BlockBody(World world, Rectangle rect, BlockModel model) {
         super(world, model);
         this.model = model;
@@ -27,6 +37,11 @@ public class BlockBody extends EntityBody{
         createFixture();
     }
 
+    /**
+     * Defines the BodyDef of a block
+     *
+     * @return Returns the generated BodyDef
+     */
     @Override
     protected BodyDef createBodyDef() {
         BodyDef bodyDef = new BodyDef();
@@ -34,6 +49,9 @@ public class BlockBody extends EntityBody{
         return bodyDef;
     }
 
+    /**
+     * Creates the FixtureDef of a block and links it to the body
+     */
     @Override
     protected void createFixture() {
         PolygonShape shape = new PolygonShape();
@@ -46,6 +64,10 @@ public class BlockBody extends EntityBody{
         body.createFixture(fixtureDef);
     }
 
+    /**
+     * Checks if the block is part of the blocks at the end of the game
+     * @return Returns whether or not the block is part of the blocks at the end of the game
+     */
     public boolean isFinal() {
         return model.isFinal();
     }
