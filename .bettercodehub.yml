@@ -1,0 +1,6 @@
+exclude:
+- /BaseGameUtils/src/main/java/com/google/example/games/basegameutils/.*
+- /android/src/com/lpoo/gravityguy/AndroidLauncher.java
+component_depth: 1
+languages:
+- java
