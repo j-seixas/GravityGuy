@@ -1,7 +1,38 @@
-# LPOO1617_T3G4_GravityGuy
+# Gravity Guy
 
-## Final Project Intermediate Check-Point:
+## Final Project Delivery:
 
+### User Manual
+![Loading1](https://cloud.githubusercontent.com/assets/19241121/26800067/ce7b7ee8-4a2f-11e7-9593-a51eb1c933ec.png)
+![Loading2](https://cloud.githubusercontent.com/assets/19241121/26800070/ce858140-4a2f-11e7-9d9e-2b2d967118f2.png)
+![Loading3](https://cloud.githubusercontent.com/assets/19241121/26800072/ce99284e-4a2f-11e7-94b1-67acd669d0b9.png)
+  * **Loading Screen**
+    Automatically opens Google Play Sign-In and proceeds for loading all the assets, switching for the Main Menu when finished.
+    
+    
+![Main Menu](https://cloud.githubusercontent.com/assets/19241121/26800063/ce429380-4a2f-11e7-971a-884114779d0e.png)
+  * **Main Menu**
+    * Play Button – To play the game
+    * Settings Button – Goes to the Settings Menu
+    * Highscores
+    * Achievements
+    * Exit Button – Exits the app
+    
+![Settings Menu](https://cloud.githubusercontent.com/assets/19241121/26800065/ce774f8a-4a2f-11e7-848d-08b474cbf776.png)
+  * **Settings Menu**
+    To enable or disable the music.
+   
+![HighScores](https://cloud.githubusercontent.com/assets/19241121/26800071/ce860fd4-4a2f-11e7-8f94-1d24328f11e5.png)
+  * **HighScores**
+    Opens GooglePlay Games HighScores.
+    
+![Achievements](https://cloud.githubusercontent.com/assets/19241121/26800064/ce6697ee-4a2f-11e7-8fab-910f3c1f008d.png)
+  * **Achievements**
+    Opens GooglePlay Games Achievements.
+    
+
+    
+    
 ### 1. Architecture Design
  * **1. Class Diagram Documentation**
 ![UML](https://cloud.githubusercontent.com/assets/19241121/25565541/8b538998-2dc0-11e7-88d5-7e167c0265be.jpg)
