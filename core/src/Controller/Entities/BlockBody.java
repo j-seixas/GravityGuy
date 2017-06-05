@@ -31,8 +31,6 @@ public class BlockBody extends EntityBody{
     public BlockBody(World world, Rectangle rect, BlockModel model) {
         super(world, model);
         this.model = model;
-
-
         this.rect = rect;
         createFixture();
     }

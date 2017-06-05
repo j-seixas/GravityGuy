@@ -9,9 +9,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import Game.GravityGuy;
 import Models.Entities.PlayerModel;
 
+/**
+ * This class implements the necessary
+ * methods to define the physical body
+ * of a player.
+ */
 public class PlayerBody extends EntityBody {
-    PlayerModel model;
+    private PlayerModel model;
 
+    /**
+     * PlayerBody constructor
+     *
+     * @param world The physics world
+     * @param model The model to which it's linked
+     */
     public PlayerBody(World world, PlayerModel model) {
         super(world, model);
         this.model = model;
@@ -19,6 +30,11 @@ public class PlayerBody extends EntityBody {
         body.setSleepingAllowed(false);
     }
 
+    /**
+     * Defines the BodyDef of a player
+     *
+     * @return Returns the generated BodyDef
+     */
     @Override
     protected BodyDef createBodyDef() {
         BodyDef bodyDef = new BodyDef();
@@ -26,6 +42,9 @@ public class PlayerBody extends EntityBody {
         return bodyDef;
     }
 
+    /**
+     * Creates the FixtureDef of a player and links it to the body
+     */
     @Override
     protected void createFixture() {
         FixtureDef fixtureDef = new FixtureDef();

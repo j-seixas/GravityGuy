@@ -13,6 +13,10 @@ import Models.Entities.BlockModel;
 import Models.Entities.PlayerModel;
 import Models.GameModel;
 
+/**
+ * This class handles the collisions and
+ * the bodies' movement
+ */
 public class GameController implements ContactListener {
 
     private static GameController gameController = null;
@@ -25,6 +29,11 @@ public class GameController implements ContactListener {
     private static float LINEAR_SPEED = 1f;
     private static final float GRAVITY = -5;
 
+    /**
+     * GameController constructor
+     * Generates the physics world and
+     * initializes the player's body
+     */
     private GameController(){
         world = new World(new Vector2(0, GRAVITY), true);
         world.setContactListener(this);
@@ -33,25 +42,38 @@ public class GameController implements ContactListener {
         playerIsMoving = true;
     }
 
+    /**
+     * Gets the instance of the GameController
+     * @return Returns the instance of the GameController
+     */
     public static GameController instance(){
         if(gameController == null)
             gameController = new GameController();
         return gameController;
     }
 
+    /**
+     * Resets the GameController
+     * @return Returns the newly generated GameController
+     */
     public static GameController reset(){
         gameController = new GameController();
         return gameController;
     }
 
+    /**
+     * Updates the physics world and its entities
+     * @param delta Elapsed time since the last update
+     */
     public void update(float delta) {
         world.step(1/60f, 6, 2);
-
         updatePlayer();
     }
 
-
-    public void updatePlayer(){
+    /**
+     * Updates the player
+     */
+    private void updatePlayer(){
         if(((PlayerModel) player.getUserData()).isGravity())
             player.getBody().setGravityScale(1);
         else
@@ -76,20 +98,32 @@ public class GameController implements ContactListener {
         ((PlayerModel) player.getUserData()).setPosition(player.getBody().getPosition().x, player.getBody().getPosition().y);
     }
 
+    /**
+     * Gets the physics world
+     * @return Returns the physics world
+     */
     public World getWorld(){ return world; }
 
-
+    /**
+     * Gets the player's body
+     * @return Returns the player's body
+     */
     public PlayerBody getPlayer() {
         return player;
     }
 
-
-    public float getVelocity() {return LINEAR_SPEED;}
-
+    /**
+     * Checks if the player is moving
+     * @return Returns whether or not the player is moving
+     */
     public boolean isPlayerIsMoving() {
         return playerIsMoving;
     }
 
+    /**
+     * Defines what to do whenever a collision starts
+     * @param contact Collision pair
+     */
     @Override
     public void beginContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
@@ -104,6 +138,10 @@ public class GameController implements ContactListener {
 
     }
 
+    /**
+     * Defines what to do whenever a collision ends
+     * @param contact Collision pair
+     */
     @Override
     public void endContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
@@ -115,17 +153,15 @@ public class GameController implements ContactListener {
 
     }
 
-
+    /**
+     * Unused
+     */
     @Override
-    public void preSolve(Contact contact, Manifold oldManifold) {
+    public void preSolve(Contact contact, Manifold oldManifold) { }
 
-    }
-
+    /**
+     * Unused
+     */
     @Override
-    public void postSolve(Contact contact, ContactImpulse impulse) {
-
-    }
-
-
-
+    public void postSolve(Contact contact, ContactImpulse impulse) { }
 }

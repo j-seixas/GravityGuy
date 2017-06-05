@@ -9,7 +9,17 @@ import com.badlogic.gdx.physics.box2d.World;
 import Controller.Entities.BlockBody;
 import Models.Entities.BlockModel;
 
+/**
+ * Translates the tile map to the
+ * respective object
+ */
 public class PhysicsWorld {
+
+    /**
+     * PhysicsWorld constructor
+     * @param world The physics world
+     * @param map The tile map
+     */
     public PhysicsWorld(World world, TiledMap map) {
 
         //Blocks
