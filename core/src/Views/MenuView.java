@@ -15,6 +15,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Game.GravityGuy;
 
+/**
+ * Defines what the menu screen should look like
+ */
 public class MenuView extends ScreenAdapter {
 
     private GravityGuy game;
@@ -27,6 +30,9 @@ public class MenuView extends ScreenAdapter {
 
     private ImageButton btPlay, btSettings, btLeaderBoard, btAchiev, btExit;
 
+    /**
+     * MenuScreen constructor
+     */
     public MenuView() {
         super();
         this.game = GravityGuy.instance();
@@ -34,11 +40,20 @@ public class MenuView extends ScreenAdapter {
 
     }
 
+    /**
+     * Resizes the screen
+     * @param width The new screen width
+     * @param height The new screen height
+     */
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, false);
     }
 
+
+    /**
+     * Shows the screen
+     */
     @Override
     public void show() {
 
@@ -57,6 +72,10 @@ public class MenuView extends ScreenAdapter {
         game.getCamera().position.y = stage.getHeight() / 2;
     }
 
+
+    /**
+     * Initializes buttons
+     */
     private void initButtons(){
         initTexButtons();
 
@@ -114,6 +133,9 @@ public class MenuView extends ScreenAdapter {
         stage.addActor(btExit);
     }
 
+    /**
+     * Initializes the text buttons
+     */
     private void initTexButtons(){
         Texture buttons = game.getAssetManager().get("images/buttons.png");
         btUpPlay = new TextureRegion(buttons, 0, 0, 400, 400);
@@ -128,37 +150,55 @@ public class MenuView extends ScreenAdapter {
         btDownExit = new TextureRegion(buttons, 1200, 400, 400, 400);
     }
 
+    /**
+     * Hides the menu screen
+     */
     @Override
     public void hide() {
         super.hide();
     }
 
+    /**
+     * Pauses the menu screen
+     */
     @Override
     public void pause() {
         super.pause();
     }
 
+    /**
+     * Resumes the menu screen
+     */
     @Override
     public void resume() {
         super.resume();
     }
 
+    /**
+     * Disposes the menu screen
+     */
     @Override
     public void dispose() {
         super.dispose();
     }
 
+    /**
+     * Updates the screen
+     * @param delta The time elapsed since the last frame
+     */
     void update(float delta){
         stage.act(delta);
     }
 
+    /**
+     * Renders the image
+     * @param delta The time elapsed since the last frame
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         update(delta);
-
         stage.draw();
     }
 }

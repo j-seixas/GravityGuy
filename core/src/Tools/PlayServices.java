@@ -1,16 +1,18 @@
 package Tools;
 
-public interface PlayServices
-{
-    public void signIn();
-    public void signOut();
-    public void rateGame();
-    public void unlockAchievement(int achiev);
-    public void incrementAchievement(int achiev, int i);
-    public void submitScore(int highScore);
-    public void showAchievement();
-    public void showScore();
-    public boolean isSignedIn();
-
-
+/**
+ * An interface that shows what a
+ * game should implements about
+ * the google play services
+ */
+public interface PlayServices {
+    void signIn();
+    void signOut();
+    void rateGame();
+    void unlockAchievement(int achiev);
+    void incrementAchievement(int achiev, int i);
+    void submitScore(int highScore);
+    void showAchievement();
+    void showScore();
+    boolean isSignedIn();
 }

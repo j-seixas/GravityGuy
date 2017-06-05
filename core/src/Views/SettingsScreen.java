@@ -19,7 +19,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Game.GravityGuy;
 
-
+/**
+ * Defines what the settings screen should look like
+ */
 public class SettingsScreen implements Screen {
 
     private GravityGuy game;
@@ -31,11 +33,17 @@ public class SettingsScreen implements Screen {
     private Label soundLabel;
     private Image background;
 
+    /**
+     * SettingsScreen constructor
+     */
     public SettingsScreen(){
         game = GravityGuy.instance();
         stage = new Stage(new StretchViewport(GravityGuy.WIDTH, GravityGuy.HEIGHT, game.getCamera()));
     }
 
+    /**
+     * Shows the screen
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -54,6 +62,9 @@ public class SettingsScreen implements Screen {
 
     }
 
+    /**
+     * Initializes textures
+     */
     void initTextures(){
         Texture backTex = game.getAssetManager().get("images/settings.png");
         background = new Image(backTex);
@@ -65,6 +76,9 @@ public class SettingsScreen implements Screen {
         returnBtDown = new TextureRegion(buttons, 1600, 400, 400, 400);
     }
 
+    /**
+     * Initializes the buttons
+     */
     void initButtonsCheckBox(){
         soundCheck = new CheckBox("",
                 new CheckBox.CheckBoxStyle(new TextureRegionDrawable(checkBoxOff),
@@ -84,12 +98,19 @@ public class SettingsScreen implements Screen {
         });
     }
 
+    /**
+     * Initializes the labels
+     */
     void initLabels(){
         soundLabel = new Label("Music", new Label.LabelStyle(game.getFont(), Color.WHITE));
         soundLabel.setFontScale(1f);
         soundLabel.setPosition(60, 55);
     }
 
+    /**
+     * Updates the screen
+     * @param delta The time elapsed since the last frame
+     */
     void update(float delta){
         if(!soundCheck.isChecked()) {
             game.setMusic(false);
@@ -99,38 +120,49 @@ public class SettingsScreen implements Screen {
         stage.act(delta);
     }
 
+    /**
+     * Renders the image
+     * @param delta The time elapsed since the last frame
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-
         update(delta);
-
         stage.draw();
     }
 
+    /**
+     * Resizes the screen
+     * @param width The new screen width
+     * @param height The new screen height
+     */
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, false);
     }
 
+    /**
+     * Unused
+     */
     @Override
-    public void pause() {
+    public void pause() { }
 
-    }
-
+    /**
+     * Unused
+     */
     @Override
-    public void resume() {
+    public void resume() { }
 
-    }
-
+    /**
+     * Unused
+     */
     @Override
-    public void hide() {
+    public void hide() { }
 
-    }
-
+    /**
+     * Disposes the screen
+     */
     @Override
     public void dispose() {
         stage.dispose();

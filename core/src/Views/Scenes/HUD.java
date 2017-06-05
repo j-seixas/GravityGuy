@@ -20,7 +20,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import Controller.GameController;
 import Game.GravityGuy;
 
-
+/**
+ * Holds the information necessary to display
+ * to the screen about the game
+ */
 public class HUD implements Disposable{
     private GravityGuy game;
     private Stage stage;
@@ -36,6 +39,9 @@ public class HUD implements Disposable{
 
     private boolean lost;
 
+    /**
+     * HUD constructor
+     */
     public HUD(){
         Gdx.input.setInputProcessor(stage);
         game = GravityGuy.instance();
@@ -77,10 +83,17 @@ public class HUD implements Disposable{
         stage.addActor(table);
     }
 
+    /**
+     * Draws the HUD elements to screen
+     */
     public void draw(){
         stage.draw();
     }
 
+    /**
+     * Updates the HUD
+     * @param delta The time elapsed since the last frame
+     */
     public void update(float delta){
         Gdx.input.setInputProcessor(stage);
         if(GameController.instance().isPlayerIsMoving()) {
@@ -94,18 +107,31 @@ public class HUD implements Disposable{
         stage.act(delta);
     }
 
-    public float getTime(){ return worldTimer + timeCount;}
-
+    /**
+     * Gets the world timer
+     * @return Returns the world timer
+     */
     public int getIntTime() { return worldTimer;}
 
+    /**
+     * Gets the camera
+     * @return Returns the camera
+     */
     public Camera getCamera(){
         return stage.getCamera();
     }
 
+    /**
+     * Sets the information about the user loosing the game
+     * @param lost Indicates if the user lost the game
+     */
     public void setLost(boolean lost) {
         this.lost = lost;
     }
 
+    /**
+     * Disposes the HUD
+     */
     @Override
     public void dispose() {
         stage.dispose();

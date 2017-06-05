@@ -73,7 +73,7 @@ public class GameController implements ContactListener {
     /**
      * Updates the player
      */
-    private void updatePlayer(){
+    public void updatePlayer(){
         if(((PlayerModel) player.getUserData()).isGravity())
             player.getBody().setGravityScale(1);
         else

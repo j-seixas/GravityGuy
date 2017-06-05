@@ -9,7 +9,10 @@ import Game.GravityGuy;
 import Models.Entities.PlayerModel;
 import Views.GameView;
 
-
+/**
+ * Hold the information necessary to
+ * display a player to the screen
+ */
 public class PlayerView extends Sprite {
 
     private TextureRegion fallingUP, fallingDOWN;
@@ -18,6 +21,12 @@ public class PlayerView extends Sprite {
     private PlayerModel model;
 
 
+    /**
+     * PlayerView constructor
+     *
+     * @param model The model to which it's linked
+     * @param screen The screen to which it should be displayed
+     */
     public PlayerView(PlayerModel model, GameView screen){
         super(screen.getAtlas().findRegion("Jump"));
         stateTimer = 0;
@@ -39,12 +48,20 @@ public class PlayerView extends Sprite {
 
     }
 
-
+    /**
+     * Updates the image's position based on its model
+     * @param delta The time elapsed since the last frame
+     */
     public void update(float delta){
         setPosition(model.getX() - getWidth() / 2 , model.getY() - getHeight() / 2 );
         setRegion(getFrame(delta));
     }
 
+    /**
+     * Gets the correct image to ensure animation
+     * @param delta The time elapsed since the last frame
+     * @return Returns the current animation frame
+     */
     public TextureRegion getFrame(float delta){
         PlayerModel.PlayerAction prevAction = model.getPrevPlayerAction();
         PlayerModel.PlayerAction currAction = model.getCurrPlayerAction();

@@ -11,6 +11,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Game.GravityGuy;
 
+/**
+ * Defines what the game over screen should look like
+ */
 public class GameOverScreen implements Screen{
     private GravityGuy game;
     private Stage stage;
@@ -19,12 +22,22 @@ public class GameOverScreen implements Screen{
     private Table table;
     private Label gameOverLabel, clickLabel, scoreLabel;
 
+    /**
+     * GameOverScreen constructor
+     *
+     * @param score The score obtained before loosing
+     * @param gravityChanges The number of times the gravity has changed
+     */
     public GameOverScreen(int score, int gravityChanges){
         game = GravityGuy.instance();
         this.score = score;
         this.gravityChanges = gravityChanges;
         stage = new Stage(new StretchViewport(GravityGuy.WIDTH, GravityGuy.HEIGHT, game.getCamera()));
     }
+
+    /**
+     * Shows the game over screen
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -56,6 +69,9 @@ public class GameOverScreen implements Screen{
         updateAchiev();
     }
 
+    /**
+     * Updates the achievements
+     */
     private void updateAchiev(){
         game.getPlayServices().incrementAchievement(0,1);
         game.getPlayServices().incrementAchievement(1,1);
@@ -65,47 +81,66 @@ public class GameOverScreen implements Screen{
         game.getPlayServices().submitScore(score);
     }
 
+    /**
+     * Renders the image
+     * @param delta The time elapsed since the last frame
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-
         update(delta);
-
         stage.draw();
     }
 
+    /**
+     * Updates the screen
+     * @param delta The time elapsed since the last frame
+     */
     public void update(float delta){
         if(Gdx.input.justTouched()){
             game.setGameScreen();
         }
-
         stage.act(delta);
-
     }
 
+    /**
+     * Resizes the screen
+     * @param width The new screen width
+     * @param height The new screen height
+     */
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, false);
     }
 
+    /**
+     * Unused
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Unused
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Unused
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Disposes the screen
+     */
     @Override
     public void dispose() {
         stage.dispose();
