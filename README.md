@@ -1,8 +1,14 @@
-# Gravity Guy
+# Gravity Guy - Final Project Delivery:
 
-## Final Project Delivery:
 
-### User Manual
+## **Setup**
+### Project Setup
+To setup the project import it as a gradle project. It should sync all the libraries needed and should work.
+
+### App Installation
+To install the app run the .apk file in your mobile. You should have the option for "Unkown Sources" in settings to be able to install it. The app isn't published so the GooglePlay Services (Google Sign-In, Leaderboards and Achievements) won't work with your account. If you want to try, ask me to make your account as a tester of the app, so you can experience all the app funcionality.
+
+## **User Manual**
 
 * **Loading Screen**  
 Automatically opens Google Play Sign-In and proceeds for loading all the assets, switching for the Main Menu when finished.
