@@ -35,6 +35,9 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 		gameHelper.setup(gameHelperListener);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useImmersiveMode = true;
+		config.useGyroscope = true;
+		config.useAccelerometer = false;
+		config.useCompass = false;
 		initialize(new GravityGuy(this), config);
 	}
 

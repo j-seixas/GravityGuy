@@ -10,7 +10,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
-//import static org.junit.Assert.*;
 
 public class GameTest {
     // This is our "test" application

@@ -55,6 +55,7 @@ public class LoadingScreen implements Screen {
                 new InternalFileHandleResolver()));
         game.getAssetManager().load("maps/map1.tmx", TiledMap.class);
         game.getAssetManager().load("maps/map2.tmx", TiledMap.class);
+       // game.getAssetManager().load("maps/map3.tmx", TiledMap.class);
 
     }
 
@@ -89,7 +90,7 @@ public class LoadingScreen implements Screen {
     }
 
     /**
-     * Perform effects
+     * Perform effects to change screen
      */
     public void changeScreen(){
 

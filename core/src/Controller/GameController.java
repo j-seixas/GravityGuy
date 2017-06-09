@@ -71,7 +71,7 @@ public class GameController implements ContactListener {
     }
 
     /**
-     * Updates the player
+     * Updates the player state, gravity and position
      */
     public void updatePlayer(){
         if(((PlayerModel) player.getUserData()).isGravity())
@@ -119,6 +119,12 @@ public class GameController implements ContactListener {
     public boolean isPlayerIsMoving() {
         return playerIsMoving;
     }
+
+    /**
+     * Gets the Speed to set to the player (in x-axy)
+     * @return Returns the Linear Speed
+     */
+    public float getLinearSpeed(){return LINEAR_SPEED;}
 
     /**
      * Defines what to do whenever a collision starts

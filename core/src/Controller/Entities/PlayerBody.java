@@ -54,6 +54,7 @@ public class PlayerBody extends EntityBody {
 
         fixtureDef.shape = shape;
         fixtureDef.restitution = 0;
+        fixtureDef.friction = 0;
         body.createFixture(fixtureDef);
     }
 

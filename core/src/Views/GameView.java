@@ -1,6 +1,7 @@
 package Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -30,7 +31,7 @@ public class GameView extends ScreenAdapter {
     private GameState state;
     private GravityGuy game;
     private TextureAtlas atlas;
-    private HUD HUD;
+    private HUD hud;
 
     private GameController gameController;
     private GameModel gameModel;
@@ -45,6 +46,8 @@ public class GameView extends ScreenAdapter {
 
     private Music music;
 
+    private static boolean gyroAvailable = false;
+    private boolean checkGyro = false;
     private int numberGravityChanges = 0;
 
     /**
@@ -60,7 +63,7 @@ public class GameView extends ScreenAdapter {
         gameController = GameController.reset();
 
         viewport = new StretchViewport(GravityGuy.WIDTH / GravityGuy.PPM, GravityGuy.HEIGHT / GravityGuy.PPM, camera);
-
+        gyroAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
     }
 
     /**
@@ -93,8 +96,19 @@ public class GameView extends ScreenAdapter {
         playerView.draw(game.getSpriteBatch());
         game.getSpriteBatch().end();
 
-        game.getSpriteBatch().setProjectionMatrix(HUD.getCamera().combined);
-        HUD.draw();
+        game.getSpriteBatch().setProjectionMatrix(hud.getCamera().combined);
+        hud.draw();
+    }
+
+    private void changeGravity(){
+        if(gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.RUNNING ){
+            if(gameModel.getPlayer().isGravity())
+                gameModel.getPlayer().setGravity(false);
+            else
+                gameModel.getPlayer().setGravity(true);
+            game.getPlayServices().incrementAchievement(2,1);
+            numberGravityChanges++;
+        }
     }
 
     /**
@@ -102,7 +116,7 @@ public class GameView extends ScreenAdapter {
      * @param delta The time elapsed since the last frame
      */
     public void handleInput(float delta){
-        if(Gdx.input.justTouched()
+        if(Gdx.input.justTouched()) {/*
                 && (gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.RUNNING) ||
                 (gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.STOPPED)){
 
@@ -111,8 +125,20 @@ public class GameView extends ScreenAdapter {
             else
                 gameModel.getPlayer().setGravity(true);
             game.getPlayServices().incrementAchievement(2,1);
-            numberGravityChanges++;
+            numberGravityChanges++;*/
+            changeGravity();
         }
+
+        if(gyroAvailable){
+            float gyroRotY = Gdx.input.getGyroscopeY();
+            if(gyroRotY >= 5 && !checkGyro)
+                checkGyro = true;
+            else if (gyroRotY <= -5 && checkGyro){
+                changeGravity();
+                checkGyro = false;
+            }
+        }
+
 
     }
 
@@ -127,16 +153,17 @@ public class GameView extends ScreenAdapter {
         playerView.update(delta);
 
 
-        if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0) {
+        if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0
+                || camera.position.x - 150 / GravityGuy.PPM > gameModel.getPlayer().getX()) {
             state = GameState.LOST;
-            HUD.setLost(true);
-            game.setGameOverScreen(HUD.getIntTime(), numberGravityChanges);
+            hud.setLost(true);
+            game.setGameOverScreen(hud.getIntTime(), numberGravityChanges);
         }
         if(gameModel.getPlayer().getCurrPlayerAction() != PlayerModel.PlayerAction.STOPPED
                 && state == GameState.PLAYING)
-            camera.position.x = gameModel.getPlayer().getX();
+            camera.position.x = gameController.getLinearSpeed() * hud.getTime();
         camera.update();
-        HUD.update(delta);
+        hud.update(delta);
         renderer.setView(camera);
     }
 
@@ -156,11 +183,11 @@ public class GameView extends ScreenAdapter {
         atlas = game.getAssetManager().get("images/GravityGuySprites.atlas");
         playerView = new PlayerView(gameModel.getPlayer(), this);
 
-        HUD = new HUD();
+        hud = new HUD();
 
         map = game.getAssetManager().get("maps/map2.tmx");
         state = GameState.PLAYING;
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        camera.position.set(viewport.getWorldWidth() / 2 + 32 / GravityGuy.PPM, viewport.getWorldHeight() / 2, 0);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
         new PhysicsWorld(gameController.getWorld(), map);
 
@@ -205,7 +232,7 @@ public class GameView extends ScreenAdapter {
     public void dispose() {
         if(map != null) map.dispose();
         if(renderer != null) renderer.dispose();
-        if(HUD != null) HUD.dispose();
+        if(hud != null) hud.dispose();
         if(atlas != null) atlas.dispose();
         if(music != null) music.dispose();
 

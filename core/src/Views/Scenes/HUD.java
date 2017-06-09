@@ -96,16 +96,21 @@ public class HUD implements Disposable{
      */
     public void update(float delta){
         Gdx.input.setInputProcessor(stage);
-        if(GameController.instance().isPlayerIsMoving()) {
+       // if(GameController.instance().isPlayerIsMoving()) {
             timeCount += delta;
-            if (timeCount >= 1 && !lost) {
-                worldTimer += 1;
+            if(!lost){
+                worldTimer = (int)timeCount;
                 timeLable.setText(String.format("%04d", worldTimer));
-                timeCount = 0;
             }
-        }
+
         stage.act(delta);
     }
+
+    /**
+     * Gets the time
+     * @return Returns the time
+     */
+    public float getTime(){ return timeCount;}
 
     /**
      * Gets the world timer
