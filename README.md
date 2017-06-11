@@ -6,7 +6,7 @@
 To setup the project import it as a gradle project. It should sync all the libraries needed and should work.
 
 * ### App Installation
-To install the app run the .apk file in your mobile. You should have the option for "Unkown Sources" in settings to be able to install it. The app isn't published so the GooglePlay Services (Google Sign-In, Leaderboards and Achievements) won't work with your account. If you want to try, ask me to make your account as a tester of the app, so you can experience all the app funcionality.
+To install the app run the .apk file in your mobile. You should have the option for "Unkown Sources" in settings to be able to install it. You can also go to https://play.google.com/store/apps/details?id=com.lpoo.gravityguy and install it. 
 
 ## **User Manual**
 
@@ -50,9 +50,8 @@ Opens GooglePlay Games Achievements.
   
     
 * **Game**   
-Tap to change the gravity.  
-If you run into an obstacle the timer (score) stops.  
-You lose if you fall off the map.  
+Tap to change the gravity upside down.  
+You lose if you fall off the map or if you can't keep up with the camera.  
 
 ![Achievements](https://cloud.githubusercontent.com/assets/19241121/26800069/ce800b3e-4a2f-11e7-9fc1-e3f6f5214e98.png)
     
