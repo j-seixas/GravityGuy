@@ -28,19 +28,18 @@ To install the app run the .apk file in your mobile. You should have the option 
 * **Settings**: A screen for the settings (if it is to play music or not). 
 * **LoadingScreen**: A screen for loading the assets.
 * **PlayServices**: An abstract class to implement the Google Play Services.
-* **GravityGuy**: The game’s main class. It’s responsible for the loading of assets and setting the screens.
+* **GravityGuy**: The game’s main class. It’s responsible for storing some variables needed to all the game and setting the screens.
 	
 	
 ### 2. Dynamic Diagram Documentation
 ![Dynamic Diagram](https://cloud.githubusercontent.com/assets/19241121/25565542/8cf29be0-2dc0-11e7-9bc7-9dfe02d4718c.jpg)  
  * **Button Dynamic**  
-	When the game is launched, the menu is displayed. The menu has 4 buttons: SinglePlayer, MultiPlayer, Highscores and Exit.  
-	A singleplayer game begins after a level being selected.  
-	A multiplayer begins after the number of players being selected (since the multiplayer is local and because smartphones’ screens aren’t as big as a computer’s, this defaults to 2).  
-	It’s possible to check the highest scores achieved by clicking Highscores.  
+	When the game is launched, the menu is displayed. The menu has 5 buttons: Play, Settings, Highscores, Achievements and Exit.  
+	The play begins a game.
+	You can change if you want music or not in Settings.
+	It’s possible to check the highest scores achieved by clicking Highscores and see the unlocked achievements in Achievements.  
 	A user can exit as soon as the game starts.  
-	Regardless of what game mode the user is playing, it can be paused and, afterwards, resumed. In the pause menu, it’s also possible to exit the game. 
-
+	
 * **Gameplay Dynamic**  
 	When a level starts, the player is running on a block.   
 	While running, the user can click the screen, which will cause the player to invert its gravity, making it free fall to the other side. If the user doesn’t click the screen, the player might eventually run out of block tiles and start to fall (corresponds to the end of a collision).   
