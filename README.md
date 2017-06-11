@@ -117,7 +117,7 @@ You lose if you fall off the map or if you can't keep up with the camera.
 The main dificulty was integrating the Google Play services into the LibGDX project, since many of the documentation and explanation was old and/or not correct, and the gradle was always giving errors for not matching versions.   
 
 ## **Overall Time**
-120 hours.  
+Approximately 120 hours.  
 
 ## **Credits**  
 For our project we used other people's code and/or assets, and we want to credit them for it:
