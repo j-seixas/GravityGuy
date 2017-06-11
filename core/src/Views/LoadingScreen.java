@@ -53,9 +53,7 @@ public class LoadingScreen implements Screen {
         game.getAssetManager().load("fontskins/Prime Regular.otf", FreeTypeFontGenerator.class);
         game.getAssetManager().setLoader(TiledMap.class, new TmxMapLoader(
                 new InternalFileHandleResolver()));
-        game.getAssetManager().load("maps/map1.tmx", TiledMap.class);
-        game.getAssetManager().load("maps/map2.tmx", TiledMap.class);
-       // game.getAssetManager().load("maps/map3.tmx", TiledMap.class);
+        game.getAssetManager().load("maps/map3.tmx", TiledMap.class);
 
     }
 
@@ -162,6 +160,7 @@ public class LoadingScreen implements Screen {
      */
     @Override
     public void dispose() {
-        stage.dispose();
+
+        if(stage != null) stage.dispose();
     }
 }

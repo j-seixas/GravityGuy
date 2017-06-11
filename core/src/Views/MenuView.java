@@ -179,6 +179,7 @@ public class MenuView extends ScreenAdapter {
      */
     @Override
     public void dispose() {
+        if(stage != null) stage.dispose();
         super.dispose();
     }
 

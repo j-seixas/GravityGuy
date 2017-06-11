@@ -116,24 +116,15 @@ public class GameView extends ScreenAdapter {
      * @param delta The time elapsed since the last frame
      */
     public void handleInput(float delta){
-        if(Gdx.input.justTouched()) {/*
-                && (gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.RUNNING) ||
-                (gameModel.getPlayer().getCurrPlayerAction() == PlayerModel.PlayerAction.STOPPED)){
-
-            if(gameModel.getPlayer().isGravity())
-                gameModel.getPlayer().setGravity(false);
-            else
-                gameModel.getPlayer().setGravity(true);
-            game.getPlayServices().incrementAchievement(2,1);
-            numberGravityChanges++;*/
+        if(Gdx.input.justTouched()) {
             changeGravity();
         }
 
         if(gyroAvailable){
             float gyroRotY = Gdx.input.getGyroscopeY();
-            if(gyroRotY >= 5 && !checkGyro)
+            if(gyroRotY >= 3 && !checkGyro)
                 checkGyro = true;
-            else if (gyroRotY <= -5 && checkGyro){
+            else if (gyroRotY <= -3 && checkGyro){
                 changeGravity();
                 checkGyro = false;
             }
@@ -154,7 +145,8 @@ public class GameView extends ScreenAdapter {
 
 
         if(gameModel.getPlayer().getY() > (208 / GravityGuy.PPM) || gameModel.getPlayer().getY() < 0
-                || camera.position.x - 150 / GravityGuy.PPM > gameModel.getPlayer().getX()) {
+                || camera.position.x - 150 / GravityGuy.PPM > gameModel.getPlayer().getX()
+                || gameModel.getPlayer().isFinishLine()) {
             state = GameState.LOST;
             hud.setLost(true);
             game.setGameOverScreen(hud.getIntTime(), numberGravityChanges);
@@ -185,7 +177,7 @@ public class GameView extends ScreenAdapter {
 
         hud = new HUD();
 
-        map = game.getAssetManager().get("maps/map2.tmx");
+        map = game.getAssetManager().get("maps/map3.tmx");
         state = GameState.PLAYING;
         camera.position.set(viewport.getWorldWidth() / 2 + 32 / GravityGuy.PPM, viewport.getWorldHeight() / 2, 0);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / GravityGuy.PPM );
@@ -235,6 +227,6 @@ public class GameView extends ScreenAdapter {
         if(hud != null) hud.dispose();
         if(atlas != null) atlas.dispose();
         if(music != null) music.dispose();
-
+        if(gameController.getWorld()!= null) gameController.getWorld().dispose();
     }
 }

@@ -213,13 +213,14 @@ public class GravityGuy extends Game {
      */
     @Override
     public void dispose() {
-        font.dispose();
-        skin.dispose();
-        menuView.dispose();
+
+        if(skin != null)
+            skin.dispose();
+        if(menuView != null) menuView.dispose();
         if(gameView != null) gameView.dispose();
-        loadingScreen.dispose();
-        settingsScreen.dispose();
-        assetManager.dispose();
-        spriteBatch.dispose();
+        if(loadingScreen != null) loadingScreen.dispose();
+        if(settingsScreen != null) settingsScreen.dispose();
+        if( assetManager != null) assetManager.dispose();
+        if(spriteBatch != null) spriteBatch.dispose();
     }
 }

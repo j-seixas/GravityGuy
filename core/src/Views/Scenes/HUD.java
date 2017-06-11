@@ -96,7 +96,6 @@ public class HUD implements Disposable{
      */
     public void update(float delta){
         Gdx.input.setInputProcessor(stage);
-       // if(GameController.instance().isPlayerIsMoving()) {
             timeCount += delta;
             if(!lost){
                 worldTimer = (int)timeCount;
@@ -139,6 +138,7 @@ public class HUD implements Disposable{
      */
     @Override
     public void dispose() {
-        stage.dispose();
+
+        if(stage != null) stage.dispose();
     }
 }
