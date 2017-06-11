@@ -113,9 +113,16 @@ You lose if you fall off the map or if you can't keep up with the camera.
 
 ![Achievements](https://cloud.githubusercontent.com/assets/19241121/26800069/ce800b3e-4a2f-11e7-9fc1-e3f6f5214e98.png)
 
-## **Dificulties**
+## **Dificulties**  
+The main dificulty was integrating the Google Play services into the LibGDX project, since many of the documentation and explanation was old and/or not correct, and the gradle was always giving errors for not matching versions.   
 
+## **Overall Time**
+120 hours.  
 
-    
+## **Credits**  
+For our project we used other people's code and/or assets, and we want to credit them for it:
+* https://github.com/playgameservices/android-basic-samples / https://chandruscm.wordpress.com/2015/12/30/how-to-setup-google-play-game-services-in-libgdx-using-android-studio/ - For Google Play Services API
+* http://manabreak.eu/java/2016/10/21/unittesting-libgdx.html - For test our project
+* https://kenney.nl/assets - Assets (images / sprites)
 
     
