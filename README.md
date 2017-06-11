@@ -7,6 +7,15 @@ To setup the project import it as a gradle project. It should sync all the libra
 
 * ### App Installation
 To install the app run the .apk file in your mobile. You should have the option for "Unkown Sources" in settings to be able to install it. You can also go to https://play.google.com/store/apps/details?id=com.lpoo.gravityguy and install it. 
+  
+
+## **Project Features**
+* Fully-functional Graphical User Interface.  
+* Be unit testable.  
+* Physics (implemented/using a physics engine(box2D inside libGDX).  
+* Mobile (uses gyroscope).  
+* Social (using social network (google), to login and interact with players (leaderboards and achievements).  
+
 
 ## **UML Diagram**
   ### 1. Class Diagram Documentation
@@ -104,7 +113,9 @@ You lose if you fall off the map or if you can't keep up with the camera.
 
 ![Achievements](https://cloud.githubusercontent.com/assets/19241121/26800069/ce800b3e-4a2f-11e7-9fc1-e3f6f5214e98.png)
 
+## **Dificulties**
 
 
     
+
     
