@@ -6,7 +6,7 @@
 To setup the project import it as a gradle project. It should sync all the libraries needed and should work.
 
 * ### App Installation
-To install the app run the .apk file in your mobile. You should have the option for "Unkown Sources" in settings to be able to install it. You can also go to https://play.google.com/store/apps/details?id=com.lpoo.gravityguy and install it. 
+To install the app run the .apk file in your mobile. You should have the option for "Unkown Sources" in settings to be able to install it. Download it here: https://github.com/myownxdeath/LPOO1617_T3G4_GravityGuy/releases/download/1.0/android-release.apk 
   
 
 ## **Project Features**
