@@ -125,4 +125,4 @@ For our project we used other people's code and/or assets, and we want to credit
 * http://manabreak.eu/java/2016/10/21/unittesting-libgdx.html - For test our project
 * https://kenney.nl/assets - Assets (images / sprites)
 
-    
+[![BCH compliance](https://bettercodehub.com/edge/badge/myownxdeath/LPOO1617_T3G4_GravityGuy?branch=master&token=e3e7a18ce6682e511ddb245f7759254a3212c9f9)](https://bettercodehub.com/)
