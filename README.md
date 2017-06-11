@@ -126,3 +126,4 @@ For our project we used other people's code and/or assets, and we want to credit
 * https://kenney.nl/assets - Assets (images / sprites)
 
     
+[![BCH compliance](https://bettercodehub.com/edge/badge/myownxdeath/LPOO1617_T3G4_GravityGuymyownxdeath/LPOO1617_T3G4_GravityGuy?branch=master&token=399c8909819088fe891fd9c8792428001521cc08)](https://bettercodehub.com/)
