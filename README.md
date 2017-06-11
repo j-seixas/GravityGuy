@@ -32,7 +32,8 @@ To install the app run the .apk file in your mobile. You should have the option 
 	
 	
 ### 2. Dynamic Diagram Documentation
-![Dynamic Diagram](https://cloud.githubusercontent.com/assets/19241121/25565542/8cf29be0-2dc0-11e7-9bc7-9dfe02d4718c.jpg)  
+![Dynamic Diagram1](https://user-images.githubusercontent.com/19241121/27011846-e07c3fc4-4ebc-11e7-9c26-4a55a385808c.png)  
+![Dynamic Diagram2](https://user-images.githubusercontent.com/19241121/27011847-e081561c-4ebc-11e7-96d3-e1a58da8571f.png)
  * **Button Dynamic**  
 	When the game is launched, the menu is displayed. The menu has 5 buttons: Play, Settings, Highscores, Achievements and Exit.  
 	The play begins a game.
