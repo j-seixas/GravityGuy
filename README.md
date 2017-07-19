@@ -1,5 +1,7 @@
 # Gravity Guy - Final Project Delivery:
 
+**Guided Project**: https://github.com/myownxdeath/feup-lpoo
+**Grade:** 18.7
 
 ## **Setup**
 * ### Project Setup
