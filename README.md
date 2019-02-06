@@ -1,5 +1,7 @@
 # Gravity Guy - Final Project Delivery:
 
+Project of FEUP's Course [LPOO](https://sigarra.up.pt/feup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=384940)
+
 **Guided Project**: https://github.com/myownxdeath/feup-lpoo  
 **Grade:** 18.7
 
